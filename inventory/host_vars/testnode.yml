@@ -1,0 +1,7 @@
+iptables_custom_rules:
+  - comment: OpenVPN eth0
+    in_interface: eth0
+    port: "1194"
+    protocol: udp
+  - comment: OpenVPN tunnel
+    in_interface: tun+

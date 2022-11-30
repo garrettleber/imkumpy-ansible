@@ -1,0 +1,12 @@
+---
+- name: Use cron.daily for logrotate instead of Debian 11 default systemd timers
+  ansible.builtin.copy:
+    content: |
+      #!/bin/sh
+
+      test -x /usr/sbin/logrotate || exit 0
+      /usr/sbin/logrotate /etc/logrotate.conf
+    dest: "/etc/cron.daily/logrotate"
+    owner: root
+    group: root
+    mode: 0755

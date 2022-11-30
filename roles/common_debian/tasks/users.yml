@@ -1,0 +1,32 @@
+---
+- name: Create groups for users
+  ansible.builtin.group:
+    name: "{{ item.name }}"
+    state: present
+  loop: "{{ users }}"
+
+- name: Add users and attach groups
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    groups:
+      - "{{ item.name }}"
+    append: true
+    shell: /bin/bash
+  loop: "{{ users }}"
+
+- name: Add any additional groups to users
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    groups: "{{ default_user_groups }}"
+    append: true
+    shell: /bin/bash
+  loop: "{{ users }}"
+
+- name: Update sudoers so users don't require password
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%sudo'
+    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+    validate: '/usr/sbin/visudo -cf %s'
+  become: true

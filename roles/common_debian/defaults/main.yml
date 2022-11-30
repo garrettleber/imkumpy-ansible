@@ -1,0 +1,6 @@
+---
+# defaults file for ansible-common-debian
+create_swap: false
+disable_ipv6: true
+relayhost:
+update_packages: true

@@ -1,0 +1,76 @@
+---
+- name: user-config -- Copy bashrc to root
+  ansible.builtin.template:
+    src: templates/bash-user-config/bashrc.j2
+    dest: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  vars:
+    is_root: true
+  loop:
+    - /root/.bashrc
+    - /etc/bash.bashrc
+
+- name: user-config -- Copy bashrc to users
+  ansible.builtin.template:
+    src: templates/bash-user-config/bashrc.j2
+    dest: /home/{{ item.name }}/.bashrc
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0644
+  vars:
+    is_root: false
+  loop: "{{ users }}"
+
+- name: user-config -- Copy default bashrc for new users
+  ansible.builtin.template:
+    src: templates/bash-user-config/bashrc.j2
+    dest: /etc/skel/.bashrc
+    owner: root
+    group: root
+    mode: 0644
+  vars:
+    is_root: false
+
+- name: user-config -- Copy profile to root
+  ansible.builtin.template:
+    src: templates/bash-user-config/profile.j2
+    dest: /root/.profile
+    owner: root
+    group: root
+    mode: 0644
+
+- name: user-config -- Copy profile to users
+  ansible.builtin.template:
+    src: templates/bash-user-config/profile.j2
+    dest: /home/{{ item.name }}/.profile
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0644
+  loop: "{{ users }}"
+
+- name: user-config -- Copy default profile for new users
+  ansible.builtin.template:
+    src: templates/bash-user-config/profile.j2
+    dest: /etc/skel/.profile
+    owner: root
+    group: root
+    mode: 0644
+
+- name: user-config -- Copy vimrc to root
+  ansible.builtin.template:
+    src: templates/bash-user-config/vimrc.j2
+    dest: /root/.vimrc
+    owner: root
+    group: root
+    mode: 0644
+
+- name: user-config -- Copy vimrc to users
+  ansible.builtin.template:
+    src: templates/bash-user-config/vimrc.j2
+    dest: /home/{{ item.name }}/.vimrc
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0644
+  loop: "{{ users }}"

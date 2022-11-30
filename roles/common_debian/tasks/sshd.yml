@@ -1,0 +1,33 @@
+---
+- name: sshd -- Copy sshd configuration
+  ansible.builtin.copy:
+    src: files/sshd_config
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart sshd
+
+- name: sshd -- Ensure root ssh dir exists
+  ansible.builtin.file:
+    dest: /root/.ssh
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+
+- name: sshd -- Copy authorized ssh keys to root
+  ansible.builtin.template:
+    src: templates/authorized_keys.j2
+    dest: /root/.ssh/authorized_keys
+    owner: root
+    group: root
+    mode: 0600
+
+- name: sshd -- Copy authorized ssh keys to users
+  ansible.posix.authorized_key:
+    user: "{{ item.0.name }}"
+    key: "{{ item.1 }}"
+  with_subelements:
+    - "{{ users }}"
+    - authorized

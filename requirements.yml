@@ -1,0 +1,15 @@
+# Run command below to install roles/collections listed in this file.
+# ansible-galaxy install -r requirements.yml
+
+roles:
+  - name: cloudalchemy.node_exporter
+  - name: elliotweiser.osx-command-line-tools
+  - name: geerlingguy.docker
+  - name: geerlingguy.gitlab
+  - name: ironicbadger.docker_compose_generator
+  - name: kyl191.openvpn
+
+collections:
+  - name: ansible.posix
+  - name: community.general
+  - name: geerlingguy.mac

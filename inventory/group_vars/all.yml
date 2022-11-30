@@ -1,0 +1,35 @@
+---
+ansible_user: lab
+system_timezone: "America/Indiana/Indianapolis"
+
+# common_debian
+relayhost: >-
+  {{ groups['mx'] | proxmox_agent_interfaces[1]['ip-addresses'][0] |
+  ansible.netcommon.ipaddr('address') | join(',') }}
+# yamllint disable rule:line-length
+root_shell_prompt: 'PS1="${debian_chroot:+($debian_chroot)}\[\033[01;{{ env_prompt_color }}m\]{{ env|upper }}\[\033[00m\]--\[\033[01;31m\]\u\[\033[00m\]@\[\033[01;{{ env_prompt_color }}m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "'
+user_shell_prompt: 'PS1="${debian_chroot:+($debian_chroot)}\[\033[01;{{ env_prompt_color }}m\]{{ env|upper }}\[\033[00m\]--\[\033[01;37m\]\u\[\033[00m\]@\[\033[01;{{ env_prompt_color }}m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "'
+# yamllint enable rule:line-length
+env_prompt_color: "{{ prompt_colors.green }}"
+env: lab
+prompt_colors:
+  black: '30'
+  red: '31'
+  green: '32'
+  yellow: '33'
+  blue: '34'
+  purple: '35'
+  cyan: '36'
+  white: '37'
+users: # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/subelements_lookup.html#examples
+  - name: lab
+    # yamllint disable rule:line-length
+    authorized:
+      - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDY206btEMKd3ulTTP6CHvFtcCX+ZaAv78fdtOpEhdLTxgExRbo4L8IGrFS4V2oGht5kBJhjSBTODLapRiJbL2mrrW5wHYr2YYrRV7CnDIjODVgB2ahoeMeEGdW6tiZ1j3LJx1lTJwGEg8gtOZfAn4I/Ek89h8l2vYdDEKCtEO+lfuqRmZU6B3OWOw1ytpTioTtWInNgjIt6yrim4Uyom6Nk2wr9xHE/9OTY/AAbZKLwhDee2WSjohRXrNkQ8SJ42nWd7GdQH0mbaItDtLFbDTKdSq0tNX95DPx0spM4DvM0Bir7NLs39uW0mwLRmfKLln4c/OAIMKrkg7+aV10oxvaDdTvx5vyYu3OMchJTwtck6jIx4ppYNZvLmof2qmWrTAnaR1ET9q8k6tPlnw5Hb4gBwtwIYaqG861qJinqL4UTnbwbr74N9aj3txAEhNG3UjWCQ+TMLLIcoC+ph1vWRsT6obPcAx9U7EqLed1RjgBT1QREegXjoJeCVPyr08Htyc= garrett@archlinux'
+      - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCmh8Pn/HwXN+nqLZSsFdVH4FeXNyyTPstZak7iv45qbo32XQ2F4dKBBNy83Y4woDbzi5HqPU+s5mUA9t2DBx7UvJseGcXSSdtm/xkXZwVTxUCd8OlNd3NVm4mlIwXRRUztT3bLqfqHP7XV4uQqSHtBzTIlj4EWsIpfSn8Y6bneFGMI04NqePGmS7Cx6ahO2FqtESy1YTb1Ahwsxd8cgCs4/nVbzXtbCd3AUvvs9htsVMyORNMgQd44+KkXseFyQ3cvDVog07ThepTh2VcN8ei6pKrNRen/Qx+Oomn8gKz9Eu7JJWinQCjJeSrPxrFXJWjEnyFcEubAc/2YBx/9TT8tBUGKLLfmc+teVQyhb8JrAGPd7WDL2XCmjgCEZEa4MijrQsZg1vLUZRu6Yde/N0lhHIDD8SZ2h6aUh9cTQAJr8Va5uhDiiTB4HojSUEv9meCCvnoO8mXZoQ5URTfL8Qwy/zJr1M60S/hte8gqdNowPhWbpz7ziSgWm6/0QUugsjs= garrett@Garretts-MBP'
+    # yamllint enable rule:line-length
+    editor: vim
+default_user_groups: "sudo"
+
+# lebergarrett.ansible_nfs_client
+sharedrive_location: truenasv2.kumpdev.com:/mnt/Primary/nfs

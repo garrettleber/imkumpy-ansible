@@ -1,0 +1,6 @@
+---
+- include_tasks: postfix.yml
+- include_tasks: dkim.yml
+- include_tasks: aliases.yml
+- name: Flush handlers
+  meta: flush_handlers

@@ -1,0 +1,36 @@
+---
+- name: postfix -- Configure postfix
+  ansible.builtin.lineinfile:
+    dest: /etc/postfix/main.cf
+    line: "{{ item.name }} = {{ item.value }}"
+    regexp: "^{{ item.name }}"
+    mode: 0644
+  with_items:
+    - name: mydestination
+      value: "$myhostname, kumpdev.com, localhost.kumpdev.com, localhost"
+    - name: mynetworks
+      value: "127.0.0.0/8 {{ trusted_networks | join(' ') }}"
+    - name: inet_interfaces
+      value: "all"
+    - name: inet_protocols
+      value: "ipv4"
+  notify: restart postfix
+
+- name: postfix -- Allow Trusted Connections to SMTP server
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    match: ["tcp", "conntrack"]
+    destination_port: "25"
+    source: "{{ item }}"
+    ctstate: NEW,ESTABLISHED
+    jump: ACCEPT
+    comment: Accept SMTP Connections from trusted hosts.
+  loop: "{{ trusted_networks }}"
+  notify: save ipv4 iptables configuration
+
+- name: postfix -- Enable postfix service
+  ansible.builtin.service:
+    name: postfix
+    state: started
+    enabled: true

@@ -1,0 +1,28 @@
+---
+- name: standard-packages -- Install Standard Packages
+  ansible.builtin.apt:
+    name:
+      - cloud-initramfs-growroot
+      - curl
+      - dnsutils
+      - gnupg
+      - htop
+      - htop
+      - iftop
+      - iotop
+      - less
+      - mtr-tiny
+      - net-tools
+      - netcat
+      - qemu-guest-agent
+      - screen
+      - software-properties-common
+      - sudo
+      - tcpdump
+      - telnet
+      - unzip
+      - vim
+      - zip
+    state: present
+    update_cache: true
+  notify: reboot instance

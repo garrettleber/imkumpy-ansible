@@ -1,0 +1,6 @@
+---
+- name: Run common tasks for all hosts # restricted for testing/development currently
+  hosts: testnode
+  become: true
+  roles:
+    - role: common_debian

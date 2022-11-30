@@ -1,0 +1,95 @@
+# Ansible managed
+---
+version: "2"
+services:
+  mc-velocity-proxy:
+    image: itzg/bungeecord:latest
+    container_name: mc-velocity-proxy
+    volumes:
+      - ./data/mc-velocity-proxy:/server
+    ports:
+      - {{ mc_connection_port }}:25577
+    environment:
+      - TYPE=VELOCITY
+    depends_on:
+      - fabric
+      - fabric-creative
+      - vanilla
+    restart: unless-stopped
+  fabric:
+    image: imkumpy/fabric-mc:{{ mc_version }}
+    container_name: fabric
+    volumes:
+      - ./data/fabric:/data
+    environment:
+      - TYPE=FABRIC
+      - DIFFICULTY=hard
+      - ENABLE_WHITELIST=true
+      - ENFORCE_WHITELIST=true
+      - EULA=true
+      - LEVEL=1_11 Kumpback
+      - MAX_WORLD_SIZE=18000
+      - MEMORY=4G
+      - ONLINE_MODE=false
+      - OPS={{ mc_ops }}
+      - OVERRIDE_SERVER_PROPERTIES=true
+      - PLUGINS_SYNC_UPDATE=false
+      - PVP=true
+      - REMOVE_OLD_MODS=true
+      - SPAWN_PROTECTION=0
+      - USE_AIKAR_FLAGS=true
+      - VERSION={{ mc_version }}
+      - VIEW_DISTANCE=10
+      - WHITELIST={{ mc_whitelist }}
+    restart: unless-stopped
+  fabric-creative:
+    image: imkumpy/fabric-worldedit-mc:{{ mc_version }}
+    container_name: fabric-creative
+    volumes:
+      - ./data/fabric-creative:/data
+    environment:
+      - TYPE=FABRIC
+      - DIFFICULTY=peaceful
+      - ENABLE_WHITELIST=true
+      - ENFORCE_WHITELIST=true
+      - EULA=true
+      - FORCE_GAMEMODE=true
+      - LEVEL=CreativeWorld
+      - LEVEL_TYPE=FLAT
+      - MAX_WORLD_SIZE=1000
+      - MEMORY=1G
+      - MODE=creative
+      - ONLINE_MODE=false
+      - OPS={{ mc_ops }}
+      - OVERRIDE_SERVER_PROPERTIES=true
+      - PLUGINS_SYNC_UPDATE=false
+      - PVP=false
+      - REMOVE_OLD_MODS=true
+      - SPAWN_PROTECTION=0
+      - USE_AIKAR_FLAGS=true
+      - VERSION={{ mc_version }}
+      - WHITELIST={{ mc_whitelist }}
+  vanilla:
+    image: imkumpy/fabric-mc:{{ mc_version }}
+    container_name: vanilla
+    volumes:
+      - ./data/vanilla:/data
+    environment:
+      - TYPE=FABRIC
+      - DIFFICULTY=normal
+      - ENABLE_WHITELIST=true
+      - ENFORCE_WHITELIST=true
+      - EULA=true
+      - LEVEL=world
+      - MAX_WORLD_SIZE=4000
+      - MEMORY=4G
+      - ONLINE_MODE=false
+      - OPS={{ mc_ops }}
+      - OVERRIDE_SERVER_PROPERTIES=true
+      - PLUGINS_SYNC_UPDATE=false
+      - PVP=true
+      - REMOVE_OLD_MODS=true
+      - SPAWN_PROTECTION=0
+      - USE_AIKAR_FLAGS=true
+      - VERSION={{ mc_version }}
+      - WHITELIST={{ mc_whitelist }}

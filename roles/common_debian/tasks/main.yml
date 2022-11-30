@@ -1,0 +1,40 @@
+---
+- include_tasks: swap.yml
+- name: Flush handlers
+  meta: flush_handlers
+
+- include_tasks: standard-packages.yml
+- name: Flush handlers
+  meta: flush_handlers
+
+- include_tasks: disable-ipv6.yml
+- name: Flush handlers
+  meta: flush_handlers
+
+- include_tasks: iptables.yml
+- name: Flush handlers
+  meta: flush_handlers
+
+- include_tasks: users.yml
+- name: Flush handlers
+  meta: flush_handlers
+
+- include_tasks: user-config.yml
+- name: Flush handlers
+  meta: flush_handlers
+
+- include_tasks: sshd.yml
+- name: Flush handlers
+  meta: flush_handlers
+
+- include_tasks: logrotate.yml
+- name: Flush handlers
+  meta: flush_handlers
+
+# - include_tasks: postfix.yml
+# - name: Flush handlers
+#   meta: flush_handlers
+
+- include_tasks: update-packages.yml
+- name: Flush handlers
+  meta: flush_handlers

@@ -1,0 +1,35 @@
+---
+##### sshd #####
+- name: restart sshd
+  ansible.builtin.systemd:
+    name: sshd
+    state: restarted
+
+##### postfix #####
+- name: restart postfix
+  ansible.builtin.systemd:
+    name: postfix
+    state: restarted
+
+##### iptables #####
+- name: Save iptables configuration
+  ansible.builtin.shell: iptables-save > /etc/iptables/rules.v4 && ip6tables-save > /etc/iptables/rules.v6
+  args:
+    warn: false
+
+##### swap #####
+- name: Make swap file if necessary.
+  ansible.builtin.command: mkswap /swapfile
+  listen: "init swap"
+
+- name: Run swapon on the swap file.
+  ansible.builtin.command: swapon /swapfile
+  listen: "init swap"
+
+##### disable-ipv6 #####
+- name: reload kernel configuration
+  ansible.builtin.command: sysctl -p
+
+##### general #####
+- name: reboot instance
+  ansible.builtin.reboot:
