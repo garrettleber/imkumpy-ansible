@@ -1,0 +1,124 @@
+---
+- name: Download pihole installer
+  ansible.builtin.get_url:
+    url: https://install.pi-hole.net
+    dest: /home/lab/basic-install.sh
+    owner: "lab"
+    group: "lab"
+    mode: 0744
+
+- name: Create /etc/pihole directory
+  ansible.builtin.file:
+    path: /etc/pihole
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Place pihole setupVars.conf on host
+  ansible.builtin.template:
+    src: templates/setupVars.conf.j2
+    dest: /etc/pihole/setupVars.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Run basic install script
+  ansible.builtin.command: /home/lab/basic-install.sh --unattended
+  args:
+    creates: /usr/local/bin/pihole
+
+- name: Install dependencies for Gravity-Sync
+  ansible.builtin.apt:
+    pkg:
+      - sqlite3
+      - sudo
+      - git
+      - rsync
+    state: present
+    update_cache: true
+
+- name: Add service account
+  ansible.builtin.user:
+    name: pi
+    comment: Service account for Gravity-Sync
+    groups: sudo
+    shell: /bin/bash
+
+- name: Create .ssh directory in pi's home
+  ansible.builtin.file:
+    path: /home/pi/.ssh
+    state: directory
+    owner: pi
+    group: pi
+    mode: 0700
+
+- name: Copy private key into pi's ssh config
+  ansible.builtin.copy:
+    content: "{{ pihole_ssh_private_key }}"
+    dest: /home/pi/.ssh/id_rsa
+    owner: pi
+    group: pi
+    mode: 0600
+
+- name: Place ssh pubkey in pi's authorized_keys
+  ansible.builtin.copy:
+    content: "{{ pihole_ssh_public_key }}"
+    dest: /home/pi/.ssh/authorized_keys
+    owner: pi
+    group: pi
+    mode: 0600
+
+- name: Update sudoers so pi doesn't require password
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: "^pi ALL="
+    line: "pi ALL=(ALL) NOPASSWD: ALL"
+    validate: "/usr/sbin/visudo -cf %s"
+
+# https://github.com/vmstan/gravity-sync/wiki/Installing
+# Steps are to be executed manually by following guide above
+# Note that you should set a password for the service account prior to running install script using
+# `sudo passwd pi`
+# And you will want to update the gravity-sync config file to include cname records
+# sudo vim /etc/gravity-sync/gravity-sync.conf
+# INCLUDE_CNAME='1'
+
+- name: Install IP failover dependencies
+  ansible.builtin.apt:
+    pkg:
+      - keepalived
+    state: present
+    update_cache: true
+
+- name: Create /etc/scripts directory
+  ansible.builtin.file:
+    path: /etc/scripts
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Place pihole-FTL monitor script on hosts
+  ansible.builtin.template:
+    src: files/chk_ftl
+    dest: /etc/scripts/chk_ftl
+    owner: root
+    group: root
+    mode: 0744
+
+- name: Place keepalived config file on host
+  ansible.builtin.template:
+    src: templates/keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart keepalived
+
+- name: Start and enable keepalived service
+  ansible.builtin.service:
+    name: keepalived
+    state: started
+    enabled: true

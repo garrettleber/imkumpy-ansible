@@ -1,0 +1,18 @@
+---
+# roles/common_debian
+iptables_custom_rules:
+  - comment: HTTP
+    port: "80"
+    protocol: tcp
+  - comment: DNS
+    port: "53"
+    protocol: tcp
+  - comment: DNS
+    port: "53"
+    protocol: udp
+
+# roles/pihole
+virtual_ip: 192.168.0.55
+# yamllint disable rule:line-length
+pihole_ssh_public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTXkT3AAh2jgIBrAIhYg3NYm4360ckjJOTfeTB1Ukq+got32f3P3pCT8LGLzS5SLzGbovsBDAS4sx3Xxt1ml+foqsDJw5u+IBRtuS8giem99NWig52KDm+jme7H9QWJFFyo7PWZbevGf9a9oeoCcaFQ8VdEZnZPjdbBJBxwmrEmRN66CrUUBu0B0wSe1PQqM7jBEvKE+r1oFsH9nQmaeRbOHaLTljJd8mJ3J03w3tq/1t9PWShHoog21jbjlE5Ns2azUriquyOHJ9n25/Q70WqB7I+ahb/M84BYhE3GaQaKLiRxdZVCGHCA420JnbYFXG4knV6meXtmS6Urhm2xF/p"
+# yamllint enable rule:line-length

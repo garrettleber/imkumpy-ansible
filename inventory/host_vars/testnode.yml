@@ -1,9 +1,16 @@
 ---
 # roles/common_debian
 iptables_custom_rules:
-  - comment: OpenVPN eth0
-    in_interface: eth0
-    port: "1194"
+  - comment: HTTP
+    port: "80"
+    protocol: tcp
+  - comment: DNS
+    port: "53"
+    protocol: tcp
+  - comment: DNS
+    port: "53"
     protocol: udp
-  - comment: OpenVPN tunnel
-    in_interface: tun+
+
+# roles/pihole
+peer_ip: 192.168.0.54
+virtual_ip: 192.168.0.55

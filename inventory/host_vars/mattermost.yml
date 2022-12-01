@@ -7,3 +7,5 @@ iptables_custom_rules:
   - comment: HTTPS
     port: "443"
     protocol: tcp
+
+# mattermost is manually configured, TODO

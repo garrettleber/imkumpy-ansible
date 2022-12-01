@@ -1,0 +1,26 @@
+---
+# roles/common_debian
+iptables_custom_rules:
+  - comment: Syncthing web GUI (personal)
+    port: "8384"
+    protocol: tcp
+  - comment: Syncthing TCP sync (personal)
+    port: "22000"
+    protocol: tcp
+  - comment: Syncthing UDP sync (personal)
+    port: "22000"
+    protocol: udp
+  - comment: Syncthing web GUI (work)
+    port: "8385"
+    protocol: tcp
+  - comment: Syncthing TCP sync (work)
+    port: "33443"
+    protocol: tcp
+  - comment: Syncthing UDP sync (work)
+    port: "33443"
+    protocol: udp
+  - comment: Syncthing discovery broadcasts
+    port: "21027"
+    protocol: udp
+
+# syncthing is manually configured, TODO

@@ -1,2 +1,4 @@
 ---
 # no custom rules necessary, this server is technically a VPN client
+
+# openvpncloud connector is manually configured, TODO
