@@ -36,6 +36,3 @@ sharedrive_location: truenasv2.kumpdev.com:/mnt/Primary/nfs
 # roles/awscli
 aws_access_key_id: "{{ vault_aws_access_key_id }}"
 aws_secret_access_key: "{{ vault_aws_secret_access_key }}"
-
-# roles/nut_client
-nut_password: "{{ vault_nut_password }}"
