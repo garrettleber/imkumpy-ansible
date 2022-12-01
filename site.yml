@@ -5,6 +5,9 @@
 - name: Setup nut client for UPS safe shutdowns
   import_playbook: playbooks/nut_clients.yml
 
+- name: Provision Docker runtime and applications on hosts
+  import_playbook: playbooks/docker.yml
+
 - name: Provision mail exchanger(s)
   import_playbook: playbooks/mx.yml
 

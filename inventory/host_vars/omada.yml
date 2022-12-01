@@ -1,0 +1,32 @@
+---
+# roles/docker_deployment
+service_account: lab
+docker_apps: ["omada-controller"] # a folder must be present with same name in files/
+
+# roles/common_debian
+iptables_custom_rules:
+  # https://www.tp-link.com/us/support/faq/3265/
+  - comment: HTTP
+    port: "8088"
+    protocol: tcp
+  - comment: HTTPS
+    port: "8043"
+    protocol: tcp
+  - comment: HTTPS2
+    port: "8843"
+    protocol: tcp
+  - comment: EAP Discovery Utility
+    port: "29810"
+    protocol: udp
+  - comment: EAP Discovery Utility legacy
+    port: "29811"
+    protocol: tcp
+  - comment: EAP Discovery Utility legacy2
+    port: "29812"
+    protocol: tcp
+  - comment: Controller upgrades legacy
+    port: "29813"
+    protocol: tcp
+  - comment: Controller upgrades
+    port: "29814"
+    protocol: tcp

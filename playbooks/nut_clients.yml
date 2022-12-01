@@ -1,6 +1,6 @@
 ---
 - name: Setup nut client for UPS safe shutdowns
-  hosts: nut_clients,testnode
+  hosts: nut_clients
   become: true
   roles:
     - role: nut_client

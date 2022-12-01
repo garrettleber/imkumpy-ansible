@@ -1,0 +1,7 @@
+---
+- name: Setup Docker container runtime and applications
+  hosts: docker
+  become: true
+  roles:
+    - role: geerlingguy.docker
+    - role: docker_deployment

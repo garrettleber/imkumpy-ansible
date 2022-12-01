@@ -1,4 +1,8 @@
 ---
+# roles/docker_deployment
+service_account: lab
+docker_apps: ["omada-controller"]
+
 # roles/common_debian
 iptables_custom_rules:
   - comment: HTTP

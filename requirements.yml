@@ -3,9 +3,7 @@
 
 roles:
   # - name: cloudalchemy.node_exporter
-  # - name: elliotweiser.osx-command-line-tools
-  # - name: geerlingguy.docker
-  # - name: geerlingguy.gitlab
+  - name: geerlingguy.docker
   # - name: ironicbadger.docker_compose_generator
   - name: kyl191.openvpn
 
@@ -14,4 +12,3 @@ collections:
     version: 1.4.0
   - name: community.general
     version: 6.0.1
-  # - name: geerlingguy.mac
