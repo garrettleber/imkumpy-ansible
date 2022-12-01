@@ -1,5 +1,5 @@
 ---
-# based on playbooks/vpn-server.yml
+# role: kyl191.openvpn
 openvpn_custom_dns:
   - "192.168.0.55"
 openvpn_dualstack: false
@@ -12,6 +12,7 @@ clients:
   - Garretts-MacBook-Pro
   - vps
 
+# roles/common_debian
 iptables_custom_rules:
   - comment: OpenVPN eth0
     in_interface: eth0

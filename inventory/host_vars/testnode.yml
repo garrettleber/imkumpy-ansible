@@ -1,3 +1,5 @@
+---
+# roles/common_debian
 iptables_custom_rules:
   - comment: OpenVPN eth0
     in_interface: eth0

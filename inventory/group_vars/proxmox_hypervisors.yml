@@ -1,7 +1,7 @@
 ---
 ansible_user: root
 
-# lebergarrett.ansible_nut_client
+# roles/nut_client
 install_nut: true
 nut_server_group: servers
 nut_server: rpi.kumpdev.com

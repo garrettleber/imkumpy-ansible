@@ -1,5 +1,5 @@
 ---
-# roles/mail-exchanger
+# roles/mail_exchanger
 trusted_networks:
   - 192.168.0.0/24
 relayhost: ""

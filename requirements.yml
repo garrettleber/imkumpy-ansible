@@ -2,14 +2,16 @@
 # ansible-galaxy install -r requirements.yml
 
 roles:
-  - name: cloudalchemy.node_exporter
-  - name: elliotweiser.osx-command-line-tools
-  - name: geerlingguy.docker
-  - name: geerlingguy.gitlab
-  - name: ironicbadger.docker_compose_generator
+  # - name: cloudalchemy.node_exporter
+  # - name: elliotweiser.osx-command-line-tools
+  # - name: geerlingguy.docker
+  # - name: geerlingguy.gitlab
+  # - name: ironicbadger.docker_compose_generator
   - name: kyl191.openvpn
 
 collections:
   - name: ansible.posix
+    version: 1.4.0
   - name: community.general
-  - name: geerlingguy.mac
+    version: 6.0.1
+  # - name: geerlingguy.mac

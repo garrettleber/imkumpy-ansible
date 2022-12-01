@@ -2,7 +2,7 @@
 ansible_user: lab
 system_timezone: "America/Indiana/Indianapolis"
 
-# common_debian
+# roles/common_debian
 relayhost: >-
   {{ groups['mx'] | proxmox_agent_interfaces[1]['ip-addresses'][0] |
   ansible.netcommon.ipaddr('address') | join(',') }}
@@ -31,5 +31,5 @@ users: # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/sub
     editor: vim
 default_user_groups: "sudo"
 
-# lebergarrett.ansible_nfs_client
+# roles/nfs_client
 sharedrive_location: truenasv2.kumpdev.com:/mnt/Primary/nfs

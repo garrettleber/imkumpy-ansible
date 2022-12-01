@@ -8,7 +8,6 @@
   roles:
     - role: common_debian
 
----
 - name: Setup nut client for UPS safe shutdowns
   tags: ["nut_clients"]
   hosts: nut_clients
@@ -17,7 +16,6 @@
   roles:
     - role: nut_client
 
----
 - name: Provision mail exchanger(s)
   tags: ["mx"]
   hosts: mx
@@ -27,9 +25,8 @@
   roles:
     - role: mail_exchanger
 
----
 - name: Provision OpenVPN server(s)
-- hosts: openvpn
+  hosts: openvpn
   tags: ["openvpn"]
   become: true
   roles:
