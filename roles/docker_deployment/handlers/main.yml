@@ -1,3 +1,0 @@
----
-- name: Save iptables configuration
-  ansible.builtin.shell: iptables-save > /etc/iptables/rules.v4
