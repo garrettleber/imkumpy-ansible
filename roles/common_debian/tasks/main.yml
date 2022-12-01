@@ -1,40 +1,30 @@
 ---
-- include_tasks: swap.yml
-- name: Flush handlers
-  meta: flush_handlers
+- name: Install standard packages
+  include_tasks: standard-packages.yml
 
-- include_tasks: standard-packages.yml
-- name: Flush handlers
-  meta: flush_handlers
+- name: Disable IPv6
+  include_tasks: disable-ipv6.yml
 
-- include_tasks: disable-ipv6.yml
-- name: Flush handlers
-  meta: flush_handlers
+- name: Install and configure iptables
+  include_tasks: iptables.yml
 
-- include_tasks: iptables.yml
-- name: Flush handlers
-  meta: flush_handlers
+- name: Create users, groups, sudo permissions
+  include_tasks: users.yml
 
-- include_tasks: users.yml
-- name: Flush handlers
-  meta: flush_handlers
+- name: Configure users (bashrc, vimrc, etc.)
+  include_tasks: user-config.yml
 
-- include_tasks: user-config.yml
-- name: Flush handlers
-  meta: flush_handlers
+- name: Configure SSH
+  include_tasks: sshd.yml
 
-- include_tasks: sshd.yml
-- name: Flush handlers
-  meta: flush_handlers
+- name: Configure logrotate
+  include_tasks: logrotate.yml
 
-- include_tasks: logrotate.yml
-- name: Flush handlers
-  meta: flush_handlers
+- name: Configure email relay
+  include_tasks: postfix.yml
 
-# - include_tasks: postfix.yml
-# - name: Flush handlers
-#   meta: flush_handlers
+- name: Update packages
+  include_tasks: update-packages.yml
 
-- include_tasks: update-packages.yml
-- name: Flush handlers
-  meta: flush_handlers
+- name: Configure swap
+  include_tasks: swap.yml

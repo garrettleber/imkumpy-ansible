@@ -7,75 +7,8 @@ proxmox-1.int.kumpdev.com ansible_user=root
 proxmox-2.int.kumpdev.com ansible_user=root
 proxmox-3.int.kumpdev.com ansible_user=root
 
-
-# [dockerhost]
-# dockerhost.int.kumpdev.com ansible_user=root
-
-# [dockerhost_grafana_loki]
-# dockerhost-grafana-loki.kumpdev.com
-
-# [nfs_server]
-# #storage shares are now managed in TrueNAS
-
-
-# [plex]
-# plex.int.kumpdev.com
-
-# [qbittorrent]
-# qbittorrent.int.kumpdev.com
-
-# [weekly_backup]
-# weekly-backup.kumpdev.com
-
-# ; [pihole] # pihole servers are now named ns1 and ns2 under nameservers group
-# ; 192.168.0.51
-# ; 192.168.0.52
-
-# [matrix]
-# matrix.kumpdev.com
-
-# [teamspeak]
-# # teamspeak is hosted in dockerhost
-# #teamspeak.kumpdev.com
-
-# [gitea]
-# ssh.gitea.kumpdev.com
-
-# [syncthing]
-# syncthing.kumpdev.com
-# syncthing.int.kumpdev.com ansible_user=root
-
-# [omada]
-# omada.int.kumpdev.com ansible_user=root
-
-# [openvpncloud]
-# openvpncloud.kumpdev.com
-
-# [truenas]
-# truenasv2.kumpdev.com ansible_user=root
-
 # [vps]
 # vps.kumpdev.com ansible_user=root
 
 # [rpi]
 # rpi.kumpdev.com
-
-# [uptime_kuma:children]
-# vps
-# rpi
-
-# [vpn_server]
-# openvpn.int.kumpdev.com ansible_user=root
-
-# [mattermost]
-# mattermost.int.kumpdev.com ansible_user=root
-
-# [reverseproxy]
-# rp.int.kumpdev.com ansible_user=root
-
-# [nameservers]
-# ns1.int.kumpdev.com ansible_user=root
-# ns2.int.kumpdev.com ansible_user=root
-
-# [prod_mc]
-# prod-mc.int.kumpdev.com

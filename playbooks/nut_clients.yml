@@ -1,8 +1,6 @@
 ---
 - name: Setup nut client for UPS safe shutdowns
-  hosts: nut_clients
+  hosts: nut_clients,testnode
   become: true
-  vars_files:
-    - ../vault.yml
   roles:
     - role: nut_client

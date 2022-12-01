@@ -31,5 +31,13 @@
   ansible.builtin.command: sysctl -p
 
 ##### general #####
-- name: reboot instance
+- name: Check if reboot is required
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+  register: reboot_required
+  listen: "reboot-required"
+
+- name: Reboot instance if required
   ansible.builtin.reboot:
+  when: reboot_required.stat.exists
+  listen: "reboot-required"

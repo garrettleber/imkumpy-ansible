@@ -1,5 +1,5 @@
 ---
-- name: standard-packages -- Install Standard Packages
+- name: Install Standard Packages
   ansible.builtin.apt:
     name:
       - cloud-initramfs-growroot
@@ -25,4 +25,4 @@
       - zip
     state: present
     update_cache: true
-  notify: reboot instance
+  notify: reboot-required

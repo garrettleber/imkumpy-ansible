@@ -1,12 +1,12 @@
 ---
-- name: postfix -- Install postfix
+- name: Install postfix
   ansible.builtin.apt:
     name:
       - postfix
     state: present
     update_cache: true
 
-- name: postfix -- Configure postfix
+- name: Configure postfix
   ansible.builtin.lineinfile:
     dest: /etc/postfix/main.cf
     line: "{{ item.name }} = {{ item.value }}"
@@ -16,7 +16,7 @@
     - name: relayhost
       value: "{{ relayhost }}"
     - name: mydestination
-      value: "$myhostname, kumpdev.com, localhost.kumpdev.com, localhost"
+      value: "$myhostname, {{ domain }}, localhost.{{ domain }} localhost"
     - name: inet_interfaces
       value: "all"
   notify: restart postfix

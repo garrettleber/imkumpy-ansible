@@ -2,8 +2,5 @@
 - name: Provision mail exchanger(s)
   hosts: mx
   become: true
-  vars_files:
-    - ../vault.yml
   roles:
-    - role: common_debian
     - role: mail_exchanger

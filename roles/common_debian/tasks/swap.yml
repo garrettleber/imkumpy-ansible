@@ -1,12 +1,12 @@
 ---
-- name: swap -- Ensure swap file exists.
+- name: Ensure swap file exists.
   ansible.builtin.command:
     cmd: dd if=/dev/zero of=/swapfile bs=1024 count=1048576
     creates: /swapfile
   notify: init swap
   when: create_swap
 
-- name: swap -- Set permissions on swap file.
+- name: Set permissions on swap file.
   ansible.builtin.file:
     path: /swapfile
     owner: root
@@ -14,7 +14,7 @@
     mode: 0600
   when: create_swap
 
-- name: swap -- Manage swap file entry in fstab.
+- name: Manage swap file entry in fstab.
   ansible.posix.mount:
     name: none
     src: /swapfile

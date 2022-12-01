@@ -1,12 +1,11 @@
 ---
-# Ansible has a builtin module for updating iptables rules but not nftables, plus our current mx server has iptables
-- name: iptables -- Remove nftables
+- name: Ensure nftables isn't present
   ansible.builtin.apt:
     name: nftables
     purge: true
     state: absent
 
-- name: iptables -- Install iptables
+- name: Install iptables
   ansible.builtin.apt:
     name:
       - iptables
@@ -14,7 +13,7 @@
     state: present
     update_cache: true
 
-- name: iptables -- Accept loopback interface connections
+- name: Accept loopback interface connections
   ansible.builtin.iptables:
     chain: INPUT
     in_interface: lo
@@ -22,7 +21,7 @@
     comment: "Accept loopback interface connections"
   notify: Save iptables configuration
 
-- name: iptables -- Accept SSH connections
+- name: Accept SSH connections
   ansible.builtin.iptables:
     chain: INPUT
     protocol: tcp
@@ -32,7 +31,7 @@
     comment: "Accept SSH connections"
   notify: Save iptables configuration
 
-- name: iptables -- Accept related and established connections
+- name: Accept related and established connections
   ansible.builtin.iptables:
     chain: INPUT
     ctstate: RELATED,ESTABLISHED
@@ -40,7 +39,7 @@
     comment: "Accept related and established connections"
   notify: Save iptables configuration
 
-- name: iptables -- Accept DNS connections
+- name: Accept DNS connections
   ansible.builtin.iptables:
     chain: INPUT
     protocol: "{{ item }}"
@@ -52,7 +51,7 @@
   notify: Save iptables configuration
   loop: ["tcp", "udp"]
 
-- name: iptables -- Accept SNMP connections
+- name: Accept SNMP connections
   ansible.builtin.iptables:
     chain: INPUT
     protocol: udp
@@ -62,7 +61,7 @@
     comment: "Accept SNMP connections"
   notify: Save iptables configuration
 
-- name: iptables -- Accept Pings
+- name: Accept Pings
   ansible.builtin.iptables:
     chain: INPUT
     protocol: icmp
@@ -72,7 +71,7 @@
     comment: "Accept Pings"
   notify: Save iptables configuration
 
-- name: iptables -- Custom rules
+- name: Custom rules
   ansible.builtin.iptables:
     chain: INPUT
     in_interface: "{{ item.in_interface|default(omit) }}"
@@ -84,49 +83,49 @@
   loop: "{{ iptables_custom_rules }}"
   when: iptables_custom_rules is defined
 
-- name: iptables -- Set the ipv6 policy for the INPUT chain to DROP
+- name: Set the ipv6 policy for the INPUT chain to DROP
   ansible.builtin.iptables:
     ip_version: ipv6
     chain: INPUT
     policy: DROP
   notify: Save iptables configuration
 
-- name: iptables -- Set the ipv6 policy for the FORWARD chain to ACCEPT
+- name: Set the ipv6 policy for the FORWARD chain to ACCEPT
   ansible.builtin.iptables:
     ip_version: ipv6
     chain: FORWARD
     policy: ACCEPT
   notify: Save iptables configuration
 
-- name: iptables -- Set the ipv6 policy for the OUTPUT chain to ACCEPT
+- name: Set the ipv6 policy for the OUTPUT chain to ACCEPT
   ansible.builtin.iptables:
     ip_version: ipv6
     chain: OUTPUT
     policy: ACCEPT
   notify: Save iptables configuration
 
-- name: iptables -- Set the ipv4 policy for the INPUT chain to DROP
+- name: Set the ipv4 policy for the INPUT chain to DROP
   ansible.builtin.iptables:
     ip_version: ipv4
     chain: INPUT
     policy: DROP
   notify: Save iptables configuration
 
-- name: iptables -- Set the ipv4 policy for the FORWARD chain to ACCEPT
+- name: Set the ipv4 policy for the FORWARD chain to ACCEPT
   ansible.builtin.iptables:
     ip_version: ipv4
     chain: FORWARD
     policy: ACCEPT
   notify: Save iptables configuration
 
-- name: iptables -- Set the ipv4 policy for the OUTPUT chain to ACCEPT
+- name: Set the ipv4 policy for the OUTPUT chain to ACCEPT
   ansible.builtin.iptables:
     ip_version: ipv4
     chain: OUTPUT
     policy: ACCEPT
   notify: Save iptables configuration
 
-- name: iptables -- Start and enable iptables service
+- name: Start and enable iptables service
   ansible.builtin.service:
     name: iptables
     state: started

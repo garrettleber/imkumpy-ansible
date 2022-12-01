@@ -1,8 +1,0 @@
----
-- name: Setup nut client for UPS safe shutdowns
-  hosts: nut_clients
-  vars_files:
-    - ../vault.yml
-  roles:
-    - role: common_debian
-    - role: nut_client

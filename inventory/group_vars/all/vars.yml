@@ -3,9 +3,8 @@ ansible_user: lab
 system_timezone: "America/Indiana/Indianapolis"
 
 # roles/common_debian
-relayhost: >-
-  {{ groups['mx'] | proxmox_agent_interfaces[1]['ip-addresses'][0] |
-  ansible.netcommon.ipaddr('address') | join(',') }}
+domain: kumpdev.com
+relayhost: mx.kumpdev.com
 # yamllint disable rule:line-length
 root_shell_prompt: 'PS1="${debian_chroot:+($debian_chroot)}\[\033[01;{{ env_prompt_color }}m\]{{ env|upper }}\[\033[00m\]--\[\033[01;31m\]\u\[\033[00m\]@\[\033[01;{{ env_prompt_color }}m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "'
 user_shell_prompt: 'PS1="${debian_chroot:+($debian_chroot)}\[\033[01;{{ env_prompt_color }}m\]{{ env|upper }}\[\033[00m\]--\[\033[01;37m\]\u\[\033[00m\]@\[\033[01;{{ env_prompt_color }}m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "'
@@ -33,3 +32,10 @@ default_user_groups: "sudo"
 
 # roles/nfs_client
 sharedrive_location: truenasv2.kumpdev.com:/mnt/Primary/nfs
+
+# roles/awscli
+aws_access_key_id: "{{ vault_aws_access_key_id }}"
+aws_secret_access_key: "{{ vault_aws_secret_access_key }}"
+
+# roles/nut_client
+nut_password: "{{ vault_nut_password }}"

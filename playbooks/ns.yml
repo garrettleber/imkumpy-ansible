@@ -2,8 +2,5 @@
 - name: Provision DNS nameservers
   hosts: ns
   become: true
-  vars_files:
-    - ../vault.yml
   roles:
-    - role: common_debian
     - role: pihole

@@ -3,5 +3,4 @@
   hosts: openvpn
   become: true
   roles:
-    - role: common_debian
     - role: kyl191.openvpn

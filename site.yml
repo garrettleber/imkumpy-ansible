@@ -1,42 +1,15 @@
 ---
 - name: Run common tasks for all hosts # restricted for testing/development currently
-  tags: ["always"]
-  # concerned about this once hosts is "all", it will run common for all hosts even when tagging for specific plays
-  # could use --limit to fix, but that's cumbersome
-  hosts: testnode
-  become: true
-  roles:
-    - role: common_debian
+  import_playbook: playbooks/common.yml
 
 - name: Setup nut client for UPS safe shutdowns
-  tags: ["nut_clients"]
-  hosts: nut_clients
-  vars_files:
-    - vault.yml
-  roles:
-    - role: nut_client
+  import_playbook: playbooks/nut_clients.yml
 
 - name: Provision mail exchanger(s)
-  tags: ["mx"]
-  hosts: mx
-  become: true
-  vars_files:
-    - vault.yml
-  roles:
-    - role: mail_exchanger
+  import_playbook: playbooks/mx.yml
 
 - name: Provision OpenVPN server(s)
-  hosts: openvpn
-  tags: ["openvpn"]
-  become: true
-  roles:
-    - role: kyl191.openvpn
+  import_playbook: playbooks/openvpn.yml
 
 - name: Provision DNS nameservers
-  hosts: ns
-  become: true
-  vars_files:
-    - vault.yml
-  roles:
-    - role: common_debian
-    - role: pihole
+  import_playbook: playbooks/ns.yml

@@ -1,5 +1,5 @@
 ---
-# additional vars in group_vars/ns.yml
+# additional vars in group_vars/ns/
 
 # roles/pihole
 peer_ip: 192.168.0.54
