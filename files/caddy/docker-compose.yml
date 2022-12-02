@@ -1,0 +1,22 @@
+---
+version: "3.7"
+networks:
+  default:
+    name: 'proxy_network'
+services:
+  caddy:
+    image: caddy:2.6.1
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./site:/srv
+      - ./data:/data
+      - ./config:/config
+    environment:
+      - CADDY_INGRESS_NETWORKS=proxy_network

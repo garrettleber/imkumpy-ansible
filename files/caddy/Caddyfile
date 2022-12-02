@@ -1,0 +1,166 @@
+#
+# Internal Services
+#
+
+drone.kumpdev.com {
+	@notStream {
+		not path /stream/
+	}
+	encode @notStream gzip
+
+	@internal {
+		remote_ip 192.168.0.0/16
+		remote_ip 172.16.0.0/12
+	}
+	handle @internal {
+		reverse_proxy drone:80
+	}
+	# else
+	respond /* "403 Access Denied" 403 {
+		close
+	}
+}
+
+gitea.kumpdev.com {
+	@internal {
+		remote_ip 192.168.0.0/16
+		remote_ip 172.16.0.0/12
+	}
+	handle @internal {
+		reverse_proxy http://192.168.0.60:3000
+	}
+	# else
+	respond /* "403 Access Denied" 403 {
+		close
+	}
+}
+
+omada.kumpdev.com {
+	@internal {
+		remote_ip 192.168.0.0/16
+	}
+	handle @internal {
+		reverse_proxy omada.int.kumpdev.com:8043 {
+			transport http {
+				tls_insecure_skip_verify
+			}
+			header_up Host {host}:8043
+			header_down Location :8043 :443
+		}
+	}
+	# else
+	respond /* "403 Access Denied" 403 {
+		close
+	}
+}
+
+photoprism.kumpdev.com {
+	@internal {
+		remote_ip 192.168.0.0/16
+	}
+	handle @internal {
+		reverse_proxy 192.168.0.104:20800
+	}
+	# else
+	respond /* "403 Access Denied" 403 {
+		close
+	}
+}
+
+plex.kumpdev.com {
+	encode gzip
+	@internal {
+		remote_ip 192.168.0.0/16
+	}
+	handle @internal {
+		reverse_proxy plex.int.kumpdev.com:32400
+	}
+	# else
+	respond /* "403 Access Denied" 403 {
+		close
+	}
+}
+
+qbittorrent.kumpdev.com {
+	@internal {
+		remote_ip 192.168.0.0/16
+	}
+	handle @internal {
+		reverse_proxy qbittorrent.int.kumpdev.com:8080 {
+			header_up Host qbittorrent.int.kumpdev.com:8080
+			header_up X-Forwarded-Host {hostport}
+			header_up -Origin
+			header_up -Referer
+		}
+	}
+	# else
+	respond /* "403 Access Denied" 403 {
+		close
+	}
+}
+
+ryzen-proxmox.kumpdev.com {
+	@internal {
+		remote_ip 192.168.0.0/16
+		remote_ip 172.16.0.0/12
+	}
+	handle @internal {
+		reverse_proxy 192.168.0.100:8006 {
+			transport http {
+				tls_insecure_skip_verify
+			}
+		}
+	}
+	# else
+	respond /* "403 Access Denied" 403 {
+		close
+	}
+}
+
+macmini-proxmox.kumpdev.com {
+	@internal {
+		remote_ip 192.168.0.0/16
+		remote_ip 172.16.0.0/12
+	}
+	handle @internal {
+		reverse_proxy 192.168.0.103:8006 {
+			transport http {
+				tls_insecure_skip_verify
+			}
+		}
+	}
+	# else
+	respond /* "403 Access Denied" 403 {
+		close
+	}
+}
+
+hpprodesk-proxmox.kumpdev.com {
+	@internal {
+		remote_ip 192.168.0.0/16
+		remote_ip 172.16.0.0/12
+	}
+	handle @internal {
+		reverse_proxy 192.168.0.102:8006 {
+			transport http {
+				tls_insecure_skip_verify
+			}
+		}
+	}
+	# else
+	respond /* "403 Access Denied" 403 {
+		close
+	}
+}
+
+#
+# External Services
+#
+
+mattermost.kumpdev.com {
+	reverse_proxy 192.168.0.97:8065
+}
+
+uptimekuma.kumpdev.com {
+	reverse_proxy rpi.kumpdev.com:3001
+}

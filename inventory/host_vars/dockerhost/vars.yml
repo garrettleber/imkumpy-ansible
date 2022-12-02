@@ -1,0 +1,24 @@
+---
+# roles/docker_deployment
+service_account: lab
+docker_apps: ["caddy", "mosquitto"] # a folder must be present with same name in files/
+
+# roles/drone
+drone_gitea_client_id: "{{ vault_drone_gitea_client_id }}"
+drone_gitea_client_secret: "{{ vault_drone_gitea_client_secret }}"
+drone_rpc_secret: "{{ vault_drone_rpc_secret }}"
+
+# roles/common_debian
+iptables_custom_rules:
+  - comment: HTTP
+    port: "80"
+    protocol: tcp
+  - comment: HTTPS
+    port: "443"
+    protocol: tcp
+  - comment: mqtt (mosquitto)
+    port: "1883"
+    protocol: tcp
+  - comment: websockets (mosquitto)
+    port: "9001"
+    protocol: tcp

@@ -16,3 +16,6 @@
 
 - name: Provision DNS nameservers
   import_playbook: playbooks/ns.yml
+
+- name: Provision Drone runner(s)
+  import_playbook: playbooks/drone.yml
