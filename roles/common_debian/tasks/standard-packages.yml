@@ -26,3 +26,4 @@
     state: present
     update_cache: true
   notify: reboot-required
+  tags: standard-packages

@@ -7,6 +7,7 @@
     group: root
     mode: 0644
   notify: restart sshd
+  tags: sshd
 
 - name: Ensure root ssh dir exists
   ansible.builtin.file:
@@ -15,6 +16,7 @@
     owner: root
     group: root
     mode: 0700
+  tags: sshd
 
 - name: Copy authorized ssh keys to root
   ansible.builtin.template:
@@ -23,6 +25,7 @@
     owner: root
     group: root
     mode: 0600
+  tags: sshd
 
 - name: Copy authorized ssh keys to users
   ansible.posix.authorized_key:
@@ -31,3 +34,4 @@
   with_subelements:
     - "{{ users }}"
     - authorized
+  tags: sshd

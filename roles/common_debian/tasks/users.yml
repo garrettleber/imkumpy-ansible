@@ -4,6 +4,7 @@
     name: "{{ item.name }}"
     state: present
   loop: "{{ users }}"
+  tags: users
 
 - name: Add users and attach groups
   ansible.builtin.user:
@@ -13,6 +14,7 @@
     append: true
     shell: /bin/bash
   loop: "{{ users }}"
+  tags: users
 
 - name: Add any additional groups to users
   ansible.builtin.user:
@@ -21,6 +23,7 @@
     append: true
     shell: /bin/bash
   loop: "{{ users }}"
+  tags: users
 
 - name: Update sudoers so users don't require password
   ansible.builtin.lineinfile:
@@ -30,3 +33,4 @@
     line: '%sudo ALL=(ALL) NOPASSWD: ALL'
     validate: '/usr/sbin/visudo -cf %s'
   become: true
+  tags: users

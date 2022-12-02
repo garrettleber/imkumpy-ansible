@@ -1,18 +1,20 @@
 ---
-- name: dkim -- Install opendkim
+- name: Install opendkim
   ansible.builtin.apt:
     name:
       - opendkim
       - opendkim-tools
     state: present
     update_cache: true
+  tags: dkim
 
-- name: dkim -- Add the postfix user to opendkim group
+- name: Add the postfix user to opendkim group
   ansible.builtin.user:
     name: postfix
     group: opendkim
+  tags: dkim
 
-- name: dkim -- Configure opendkim
+- name: Configure opendkim
   ansible.builtin.lineinfile:
     dest: /etc/opendkim.conf
     line: "{{ item.name }} {{ item.value }}"
@@ -26,8 +28,9 @@
     - name: SubDomains
       value: "no"
   notify: restart opendkim
+  tags: dkim
 
-- name: dkim -- Add block to end of dkim configuration
+- name: Add block to end of dkim configuration
   ansible.builtin.blockinfile:
     path: /etc/opendkim.conf
     marker: "#<!-- {mark} ANSIBLE MANAGED BLOCK -->"
@@ -43,16 +46,18 @@
       # A set of internal hosts whose mail should be signed
       InternalHosts       /etc/opendkim/trusted.hosts
   notify: restart opendkim
+  tags: dkim
 
-- name: dkim -- Create directory for keys
+- name: Create directory for keys
   ansible.builtin.file:
     path: /etc/opendkim/keys
     state: directory
     owner: opendkim
     group: opendkim
     mode: 0700
+  tags: dkim
 
-- name: dkim -- Create the signing table
+- name: Create the signing table
   ansible.builtin.lineinfile:
     dest: /etc/opendkim/signing.table
     line: "{{ item.name }} {{ item.value }}"
@@ -64,8 +69,9 @@
     - name: "*@mx.kumpdev.com"
       value: "default._domainkey.kumpdev.com"
   notify: restart opendkim
+  tags: dkim
 
-- name: dkim -- Create the key table
+- name: Create the key table
   ansible.builtin.lineinfile:
     dest: /etc/opendkim/key.table
     line: "{{ item.name }} {{ item.value }}"
@@ -76,8 +82,9 @@
     - name: "default._domainkey.kumpdev.com"
       value: "kumpdev.com:default:/etc/opendkim/keys/kumpdev.com/default.private"
   notify: restart opendkim
+  tags: dkim
 
-- name: dkim -- Create the trusted hosts file
+- name: Create the trusted hosts file
   ansible.builtin.lineinfile:
     dest: /etc/opendkim/trusted.hosts
     line: "{{ item }}"
@@ -88,8 +95,9 @@
     - "localhost"
     - "*.kumpdev.com"
   notify: restart opendkim
+  tags: dkim
 
-- name: dkim -- Append trusted networks to trusted hosts file
+- name: Append trusted networks to trusted hosts file
   ansible.builtin.lineinfile:
     dest: /etc/opendkim/trusted.hosts
     line: "{{ item }}"
@@ -97,41 +105,47 @@
     mode: 0644
   loop: "{{ trusted_networks }}"
   notify: restart opendkim
+  tags: dkim
 
-- name: dkim -- Create the directory for the domain
+- name: Create the directory for the domain
   ansible.builtin.file:
     path: "/etc/opendkim/keys/kumpdev.com"
     state: directory
     owner: opendkim
     group: opendkim
     mode: 0755
+  tags: dkim
 
-- name: dkim -- Check for private key
+- name: Check for private key
   ansible.builtin.stat:
     path: "/etc/opendkim/keys/kumpdev.com/default.private"
   register: dkim_priv_key
+  tags: dkim
 
-- name: dkim -- Generate Keys
+- name: Generate Keys
   ansible.builtin.command: "opendkim-genkey -b 2048 -d kumpdev.com -D /etc/opendkim/keys/kumpdev.com -s default -v"
   when: not dkim_priv_key.stat.exists
   notify: restart opendkim
+  tags: dkim
 
-- name: dkim -- Change private key permissions and ownership
+- name: Change private key permissions and ownership
   ansible.builtin.file:
     path: "/etc/opendkim/keys/kumpdev.com/default.private"
     owner: opendkim
     group: opendkim
     mode: 0600
+  tags: dkim
 
-- name: dkim -- Create the directory for the socket
+- name: Create the directory for the socket
   ansible.builtin.file:
     path: /var/spool/postfix/opendkim
     state: directory
     owner: opendkim
     group: postfix
     mode: 0755
+  tags: dkim
 
-- name: dkim -- Update DKIM config with socket location
+- name: Update DKIM config with socket location
   ansible.builtin.lineinfile:
     dest: /etc/opendkim.conf
     line: "{{ item.name }} {{ item.value }}"
@@ -140,8 +154,9 @@
     - name: "Socket"
       value: "local:/var/spool/postfix/opendkim/opendkim.sock"
   notify: restart opendkim
+  tags: dkim
 
-- name: dkim -- Establish Socket
+- name: Establish Socket
   ansible.builtin.lineinfile:
     dest: /etc/default/opendkim
     line: "{{ item.name }}={{ item.value }}"
@@ -150,8 +165,9 @@
     - name: "SOCKET"
       value: '"local:/var/spool/postfix/opendkim/opendkim.sock"'
   notify: restart opendkim
+  tags: dkim
 
-- name: dkim -- Configure postfix
+- name: Configure postfix
   ansible.builtin.lineinfile:
     dest: /etc/postfix/main.cf
     line: "{{ item.name }} = {{ item.value }}"
@@ -167,3 +183,4 @@
     - name: non_smtpd_milters
       value: "$smtpd_milters"
   notify: restart opendkim
+  tags: dkim

@@ -17,12 +17,40 @@
   args:
     warn: false
 
+- name: Set the iptables ipv6 policies
+  ansible.builtin.iptables:
+    ip_version: ipv6
+    chain: "{{ item.chain }}"
+    policy: "{{ item.policy }}"
+  loop:
+    - chain: INPUT
+      policy: DROP
+    - chain: FORWARD
+      policy: ACCEPT
+    - chain: OUTPUT
+      policy: ACCEPT
+  listen: Set iptables policies
+
+- name: Set the iptables ipv4 policies
+  ansible.builtin.iptables:
+    ip_version: ipv4
+    chain: "{{ item.chain }}"
+    policy: "{{ item.policy }}"
+  loop:
+    - chain: INPUT
+      policy: DROP
+    - chain: FORWARD
+      policy: ACCEPT
+    - chain: OUTPUT
+      policy: ACCEPT
+  listen: Set iptables policies
+
 ##### swap #####
-- name: Make swap file if necessary.
+- name: Make swap file
   ansible.builtin.command: mkswap /swapfile
   listen: "init swap"
 
-- name: Run swapon on the swap file.
+- name: Run swapon on the swap file
   ansible.builtin.command: swapon /swapfile
   listen: "init swap"
 

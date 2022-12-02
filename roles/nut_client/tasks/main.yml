@@ -5,6 +5,7 @@
     state: present
     update_cache: true
   when: install_nut
+  tags: nut-client
 
 - name: edit /etc/nut/upsmon.conf
   ansible.builtin.blockinfile:
@@ -51,6 +52,7 @@
 
       FINALDELAY 5
   notify: restart nut-client
+  tags: nut-client
 
 - name: edit /etc/nut/nut.conf
   ansible.builtin.lineinfile:
@@ -58,3 +60,4 @@
     regexp: '^MODE='
     line: MODE=netclient
   notify: restart nut-client
+  tags: nut-client

@@ -4,6 +4,7 @@
     name: nftables
     purge: true
     state: absent
+  tags: iptables
 
 - name: Install iptables
   ansible.builtin.apt:
@@ -12,6 +13,8 @@
       - iptables-persistent
     state: present
     update_cache: true
+  notify: Set iptables policies
+  tags: iptables
 
 - name: Accept loopback interface connections
   ansible.builtin.iptables:
@@ -20,6 +23,7 @@
     jump: ACCEPT
     comment: "Accept loopback interface connections"
   notify: Save iptables configuration
+  tags: iptables
 
 - name: Accept SSH connections
   ansible.builtin.iptables:
@@ -30,6 +34,7 @@
     jump: ACCEPT
     comment: "Accept SSH connections"
   notify: Save iptables configuration
+  tags: iptables
 
 - name: Accept related and established connections
   ansible.builtin.iptables:
@@ -38,6 +43,7 @@
     jump: ACCEPT
     comment: "Accept related and established connections"
   notify: Save iptables configuration
+  tags: iptables
 
 - name: Accept DNS connections
   ansible.builtin.iptables:
@@ -50,6 +56,7 @@
     comment: "Accept DNS connections"
   notify: Save iptables configuration
   loop: ["tcp", "udp"]
+  tags: iptables
 
 - name: Accept SNMP connections
   ansible.builtin.iptables:
@@ -60,6 +67,7 @@
     jump: ACCEPT
     comment: "Accept SNMP connections"
   notify: Save iptables configuration
+  tags: iptables
 
 - name: Accept Pings
   ansible.builtin.iptables:
@@ -70,63 +78,27 @@
     jump: ACCEPT
     comment: "Accept Pings"
   notify: Save iptables configuration
+  tags: iptables
 
 - name: Custom rules
   ansible.builtin.iptables:
     chain: INPUT
-    in_interface: "{{ item.in_interface|default(omit) }}"
-    protocol: "{{ item.protocol|default(omit) }}"
-    destination_port: "{{ item.port|default(omit) }}"
-    jump: ACCEPT
     comment: "Accept {{ item.comment }}"
+    ctstate: "{{ item.ctstate|default(omit) }}"
+    destination_port: "{{ item.port|default(omit) }}"
+    in_interface: "{{ item.in_interface|default(omit) }}"
+    jump: ACCEPT
+    match: "{{ item.match|default(omit) }}"
+    protocol: "{{ item.protocol|default(omit) }}"
+    source: "{{ item.source|default(omit) }}"
   notify: Save iptables configuration
   loop: "{{ iptables_custom_rules }}"
   when: iptables_custom_rules is defined
-
-- name: Set the ipv6 policy for the INPUT chain to DROP
-  ansible.builtin.iptables:
-    ip_version: ipv6
-    chain: INPUT
-    policy: DROP
-  notify: Save iptables configuration
-
-- name: Set the ipv6 policy for the FORWARD chain to ACCEPT
-  ansible.builtin.iptables:
-    ip_version: ipv6
-    chain: FORWARD
-    policy: ACCEPT
-  notify: Save iptables configuration
-
-- name: Set the ipv6 policy for the OUTPUT chain to ACCEPT
-  ansible.builtin.iptables:
-    ip_version: ipv6
-    chain: OUTPUT
-    policy: ACCEPT
-  notify: Save iptables configuration
-
-- name: Set the ipv4 policy for the INPUT chain to DROP
-  ansible.builtin.iptables:
-    ip_version: ipv4
-    chain: INPUT
-    policy: DROP
-  notify: Save iptables configuration
-
-- name: Set the ipv4 policy for the FORWARD chain to ACCEPT
-  ansible.builtin.iptables:
-    ip_version: ipv4
-    chain: FORWARD
-    policy: ACCEPT
-  notify: Save iptables configuration
-
-- name: Set the ipv4 policy for the OUTPUT chain to ACCEPT
-  ansible.builtin.iptables:
-    ip_version: ipv4
-    chain: OUTPUT
-    policy: ACCEPT
-  notify: Save iptables configuration
+  tags: iptables
 
 - name: Start and enable iptables service
   ansible.builtin.service:
     name: iptables
     state: started
     enabled: true
+  tags: iptables

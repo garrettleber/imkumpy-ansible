@@ -1,5 +1,5 @@
 ---
-- name: postfix -- Configure aliases (mailinglists)
+- name: Configure aliases (mailinglists)
   ansible.builtin.lineinfile:
     dest: /etc/aliases
     line: "{{ item.name }}: {{ item.value }}"
@@ -9,3 +9,4 @@
     - name: me
       value: "garrett@garrettleber.com, lebergarrett@gmail.com"
   notify: new aliases
+  tags: aliases

@@ -5,6 +5,7 @@
     creates: /swapfile
   notify: init swap
   when: create_swap
+  tags: swap
 
 - name: Set permissions on swap file.
   ansible.builtin.file:
@@ -13,6 +14,7 @@
     group: root
     mode: 0600
   when: create_swap
+  tags: swap
 
 - name: Manage swap file entry in fstab.
   ansible.posix.mount:
@@ -22,3 +24,4 @@
     opts: sw
     state: present
   when: create_swap
+  tags: swap

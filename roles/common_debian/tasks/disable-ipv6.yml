@@ -13,6 +13,7 @@
     - "net.ipv6.conf.lo.disable_ipv6 = 1"
   when: disable_ipv6
   notify: reload kernel configuration
+  tags: disable-ipv6
 
 - name: Remove IPv6 lines from /etc/hosts
   ansible.builtin.lineinfile:
@@ -24,3 +25,4 @@
     state: absent
   when: disable_ipv6
   notify: reload kernel configuration
+  tags: disable-ipv6

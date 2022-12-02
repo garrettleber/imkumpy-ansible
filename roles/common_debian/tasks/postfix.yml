@@ -5,6 +5,7 @@
       - postfix
     state: present
     update_cache: true
+  tags: postfix
 
 - name: Configure postfix
   ansible.builtin.lineinfile:
@@ -16,7 +17,8 @@
     - name: relayhost
       value: "{{ relayhost }}"
     - name: mydestination
-      value: "$myhostname, {{ domain }}, localhost.{{ domain }} localhost"
+      value: "$myhostname, {{ domain }}, localhost.{{ domain }}, localhost"
     - name: inet_interfaces
       value: "all"
   notify: restart postfix
+  tags: postfix

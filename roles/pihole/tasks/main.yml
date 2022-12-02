@@ -6,6 +6,7 @@
     owner: "lab"
     group: "lab"
     mode: 0744
+  tags: pihole
 
 - name: Create /etc/pihole directory
   ansible.builtin.file:
@@ -14,6 +15,7 @@
     owner: root
     group: root
     mode: 0755
+  tags: pihole
 
 - name: Place pihole setupVars.conf on host
   ansible.builtin.template:
@@ -22,11 +24,13 @@
     owner: root
     group: root
     mode: 0644
+  tags: pihole
 
 - name: Run basic install script
   ansible.builtin.command: /home/lab/basic-install.sh --unattended
   args:
     creates: /usr/local/bin/pihole
+  tags: pihole
 
 - name: Install dependencies for Gravity-Sync
   ansible.builtin.apt:
@@ -37,6 +41,7 @@
       - rsync
     state: present
     update_cache: true
+  tags: pihole
 
 - name: Add service account
   ansible.builtin.user:
@@ -44,6 +49,7 @@
     comment: Service account for Gravity-Sync
     groups: sudo
     shell: /bin/bash
+  tags: pihole
 
 - name: Create .ssh directory in pi's home
   ansible.builtin.file:
@@ -52,6 +58,7 @@
     owner: pi
     group: pi
     mode: 0700
+  tags: pihole
 
 - name: Copy private key into pi's ssh config
   ansible.builtin.copy:
@@ -60,6 +67,7 @@
     owner: pi
     group: pi
     mode: 0600
+  tags: pihole
 
 - name: Place ssh pubkey in pi's authorized_keys
   ansible.builtin.copy:
@@ -68,6 +76,7 @@
     owner: pi
     group: pi
     mode: 0600
+  tags: pihole
 
 - name: Update sudoers so pi doesn't require password
   ansible.builtin.lineinfile:
@@ -76,6 +85,7 @@
     regexp: "^pi ALL="
     line: "pi ALL=(ALL) NOPASSWD: ALL"
     validate: "/usr/sbin/visudo -cf %s"
+  tags: pihole
 
 # https://github.com/vmstan/gravity-sync/wiki/Installing
 # Steps are to be executed manually by following guide above
@@ -91,6 +101,7 @@
       - keepalived
     state: present
     update_cache: true
+  tags: pihole
 
 - name: Create /etc/scripts directory
   ansible.builtin.file:
@@ -99,6 +110,7 @@
     owner: root
     group: root
     mode: 0755
+  tags: pihole
 
 - name: Place pihole-FTL monitor script on hosts
   ansible.builtin.template:
@@ -107,6 +119,7 @@
     owner: root
     group: root
     mode: 0744
+  tags: pihole
 
 - name: Place keepalived config file on host
   ansible.builtin.template:
@@ -116,9 +129,11 @@
     group: root
     mode: 0644
   notify: restart keepalived
+  tags: pihole
 
 - name: Start and enable keepalived service
   ansible.builtin.service:
     name: keepalived
     state: started
     enabled: true
+  tags: pihole

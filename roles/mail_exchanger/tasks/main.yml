@@ -1,6 +1,12 @@
 ---
-- include_tasks: postfix.yml
-- include_tasks: dkim.yml
-- include_tasks: aliases.yml
-- name: Flush handlers
-  meta: flush_handlers
+- name: Install and configure postfix
+  include_tasks: postfix.yml
+  tags: postfix
+
+- name: Install and configure dkim
+  include_tasks: dkim.yml
+  tags: dkim
+
+- name: Configure email aliases
+  include_tasks: aliases.yml
+  tags: aliases

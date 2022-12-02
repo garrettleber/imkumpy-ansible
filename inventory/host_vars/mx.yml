@@ -5,6 +5,9 @@ trusted_networks:
 relayhost: ""
 
 iptables_custom_rules:
-  - comment: SMTP
+  - comment: SMTP Connections from trusted hosts.
+    ctstate: NEW,ESTABLISHED
+    match: ["tcp", "conntrack"]
     port: "25"
     protocol: tcp
+    source: "{{ trusted_networks[0] }}"

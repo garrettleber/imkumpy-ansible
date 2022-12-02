@@ -6,9 +6,11 @@
     cache_valid_time: 86400 # 1 day
   when: update_packages
   notify: reboot-required
+  tags: update-packages
 
 - name: Remove dependencies that are no longer required
   ansible.builtin.apt:
     autoremove: true
   when: update_packages
   notify: reboot-required
+  tags: update-packages
