@@ -5,10 +5,12 @@
 
 - name: Disable IPv6
   include_tasks: disable-ipv6.yml
+  when: disable_ipv6
   tags: disable-ipv6
 
 - name: Install and configure iptables
   include_tasks: iptables.yml
+  when: setup_iptables
   tags: iptables
 
 - name: Create users, groups, sudo permissions

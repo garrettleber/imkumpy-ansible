@@ -4,6 +4,7 @@
     name: nftables
     purge: true
     state: absent
+  when: setup_iptables
   tags: iptables
 
 - name: Install iptables
@@ -14,6 +15,7 @@
     state: present
     update_cache: true
   notify: Set iptables policies
+  when: setup_iptables
   tags: iptables
 
 - name: Accept loopback interface connections
@@ -23,6 +25,7 @@
     jump: ACCEPT
     comment: "Accept loopback interface connections"
   notify: Save iptables configuration
+  when: setup_iptables
   tags: iptables
 
 - name: Accept SSH connections
@@ -34,6 +37,7 @@
     jump: ACCEPT
     comment: "Accept SSH connections"
   notify: Save iptables configuration
+  when: setup_iptables
   tags: iptables
 
 - name: Accept related and established connections
@@ -43,6 +47,7 @@
     jump: ACCEPT
     comment: "Accept related and established connections"
   notify: Save iptables configuration
+  when: setup_iptables
   tags: iptables
 
 - name: Accept DNS connections
@@ -56,6 +61,7 @@
     comment: "Accept DNS connections"
   notify: Save iptables configuration
   loop: ["tcp", "udp"]
+  when: setup_iptables
   tags: iptables
 
 - name: Accept SNMP connections
@@ -67,6 +73,7 @@
     jump: ACCEPT
     comment: "Accept SNMP connections"
   notify: Save iptables configuration
+  when: setup_iptables
   tags: iptables
 
 - name: Accept Pings
@@ -78,6 +85,7 @@
     jump: ACCEPT
     comment: "Accept Pings"
   notify: Save iptables configuration
+  when: setup_iptables
   tags: iptables
 
 - name: Custom rules
@@ -93,7 +101,7 @@
     source: "{{ item.source|default(omit) }}"
   notify: Save iptables configuration
   loop: "{{ iptables_custom_rules }}"
-  when: iptables_custom_rules is defined
+  when: setup_iptables and iptables_custom_rules is defined
   tags: iptables
 
 - name: Start and enable iptables service
@@ -101,4 +109,5 @@
     name: iptables
     state: started
     enabled: true
+  when: setup_iptables
   tags: iptables
