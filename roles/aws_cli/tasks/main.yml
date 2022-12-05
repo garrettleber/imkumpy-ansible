@@ -1,0 +1,40 @@
+---
+- name: Check if awscli exists
+  ansible.builtin.stat:
+    path: /usr/local/bin/aws
+  register: awscli_dir
+  tags: aws-cli
+
+- name: Install unzip
+  ansible.builtin.apt:
+    name: unzip
+    state: present
+  become: true
+  tags: aws-cli
+
+- name: Unzip awscli zip
+  ansible.builtin.unarchive:
+    src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /var/tmp
+    remote_src: true
+    creates: /var/tmp/awscli/
+  when: not awscli_dir.stat.exists
+  tags: aws-cli
+
+- name: Run awscli install script
+  ansible.builtin.command: ./aws/install
+  args:
+    chdir: /var/tmp
+    creates: /usr/local/bin/aws
+  become: true
+  when: not awscli_dir.stat.exists
+  tags: aws-cli
+
+- name: Cleanup
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "/var/tmp/awscli.zip"
+    - "/var/tmp/awscli"
+  tags: aws-cli

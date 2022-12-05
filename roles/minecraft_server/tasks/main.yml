@@ -1,0 +1,132 @@
+---
+#
+# Docker-compose setup
+#
+
+- name: Create the prod-mc directory
+  ansible.builtin.file:
+    path: "{{ mc_docker_compose_directory }}"
+    state: directory
+    owner: "{{ mc_docker_user }}"
+    group: "{{ mc_docker_user }}"
+    mode: 0755
+  tags: minecraft-server
+
+- name: Copy over prod-mc docker-compose file
+  ansible.builtin.template:
+    src: templates/docker-compose.yml.j2
+    dest: "{{ mc_docker_compose_directory }}/docker-compose.yml"
+    owner: "{{ mc_docker_user }}"
+    group: "{{ mc_docker_user }}"
+    mode: 0644
+    backup: true
+  tags: minecraft-server
+
+- name: Ensure server volume mount points are created
+  ansible.builtin.file:
+    path: "{{ mc_docker_compose_directory }}/data/{{ item }}"
+    owner: "{{ mc_docker_user }}"
+    group: "{{ mc_docker_user }}"
+    mode: 0775
+    state: directory
+    recurse: true
+  loop: "{{ mc_fabric_servers + mc_paper_servers }}"
+  tags: minecraft-server
+
+- name: Ensure velocity proxy volume mount points are created
+  ansible.builtin.file:
+    path: "{{ mc_docker_compose_directory }}/data/{{ item }}"
+    owner: "{{ mc_docker_user }}"
+    group: "{{ mc_docker_user }}"
+    mode: 0755
+    state: directory
+    recurse: true
+  loop: "{{ mc_velocity_servers }}"
+  tags: minecraft-server
+
+#
+# Fabric Servers
+#
+
+- name: Ensure fabric config directory is created
+  ansible.builtin.file:
+    path: "{{ mc_docker_compose_directory }}/data/{{ item }}/config"
+    owner: "{{ mc_docker_user }}"
+    group: "{{ mc_docker_user }}"
+    mode: 0755
+    state: directory
+  loop: "{{ mc_fabric_servers }}"
+  tags: minecraft-server
+
+- name: Configure FabricProxy-Lite for the Fabric servers
+  ansible.builtin.template:
+    src: templates/FabricProxy-Lite.toml.j2
+    dest: "{{ mc_docker_compose_directory }}/data/{{ item }}/config/FabricProxy-Lite.toml"
+    owner: "{{ mc_docker_user }}"
+    group: "{{ mc_docker_user }}"
+    mode: 0600
+    backup: true
+  loop: "{{ mc_fabric_servers }}"
+  tags: minecraft-server
+
+#
+# Paper Servers
+#
+
+- name: Configure spigot.yml on paper servers
+  ansible.builtin.template:
+    src: templates/spigot.yml.j2
+    dest: "{{ mc_docker_compose_directory }}/data/{{ item }}/spigot.yml"
+    owner: "{{ mc_docker_user }}"
+    group: "{{ mc_docker_user }}"
+    mode: 0600
+    backup: true
+  loop: "{{ mc_paper_servers }}"
+  tags: minecraft-server
+
+- name: Ensure Essentials directory is created
+  ansible.builtin.file:
+    path: "{{ mc_docker_compose_directory }}/data/{{ item }}/plugins/Essentials"
+    owner: "{{ mc_docker_user }}"
+    group: "{{ mc_docker_user }}"
+    mode: 0755
+    state: directory
+    recurse: true
+  loop: "{{ mc_paper_servers }}"
+  tags: minecraft-server
+
+- name: Configure Essentials config.yml on paper servers
+  ansible.builtin.template:
+    src: templates/essentials-config.yml.j2
+    dest: "{{ mc_docker_compose_directory }}/data/{{ item }}/plugins/Essentials/config.yml"
+    owner: "{{ mc_docker_user }}"
+    group: "{{ mc_docker_user }}"
+    mode: 0600
+  loop: "{{ mc_paper_servers }}"
+  tags: minecraft-server
+
+#
+# Velocity Proxy
+#
+
+- name: Configure velocity proxy
+  ansible.builtin.template:
+    src: templates/velocity.toml.j2
+    dest: "{{ mc_docker_compose_directory }}/data/{{ item }}/velocity.toml"
+    owner: "{{ mc_docker_user }}"
+    group: "{{ mc_docker_user }}"
+    mode: 0644
+    backup: true
+  loop: "{{ mc_velocity_servers }}"
+  tags: minecraft-server
+
+- name: Place velocity forwarding secret file
+  ansible.builtin.copy:
+    content: "{{ forwarding_secret }}"
+    dest: "{{ mc_docker_compose_directory }}/data/{{ item }}/forwarding.secret"
+    owner: "{{ mc_docker_user }}"
+    group: "{{ mc_docker_user }}"
+    mode: 0600
+    backup: true
+  loop: "{{ mc_velocity_servers }}"
+  tags: minecraft-server

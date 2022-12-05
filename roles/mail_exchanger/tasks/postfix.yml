@@ -1,4 +1,10 @@
 ---
+- name: Check if postfix config file exists # it always should on install, this is for ansible --check mode
+  ansible.builtin.stat:
+    path: /etc/postfix/main.cf
+  register: postfix_config_file
+  tags: postfix
+
 - name: Configure postfix
   ansible.builtin.lineinfile:
     dest: /etc/postfix/main.cf
@@ -14,6 +20,7 @@
       value: "all"
     - name: inet_protocols
       value: "ipv4"
+  when: postfix_config_file.stat.exists
   notify: restart postfix
   tags: postfix
 

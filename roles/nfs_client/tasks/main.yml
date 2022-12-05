@@ -1,0 +1,31 @@
+---
+- name: Install NFS
+  ansible.builtin.apt:
+    pkg:
+      - nfs-common
+    state: present
+    update_cache: true
+  become: true
+  tags: nfs-client
+
+# Needed on WSL Hosts, however ansible isn't working to deploy, try the following commands
+# sudo /etc/init.d/rpcbind start
+# sudo /etc/init.d/nfs-common start
+
+- name: Create mount point for shared drive
+  ansible.builtin.file:
+    path: /media/shared
+    state: directory
+    mode: 0755
+  become: true
+  tags: nfs-client
+
+- name: Mount /media/shared drive
+  ansible.posix.mount:
+    path: /media/shared
+    src: "{{ sharedrive_location }}"
+    fstype: nfs
+    opts: defaults
+    state: mounted
+  become: true
+  tags: nfs-client

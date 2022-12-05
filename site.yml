@@ -19,3 +19,6 @@
 
 - name: Provision Drone runner(s)
   import_playbook: playbooks/drone.yml
+
+- name: Provision Minecraft server(s)
+  import_playbook: playbooks/prod_mc.yml
