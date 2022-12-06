@@ -67,5 +67,6 @@
 
 - name: Reboot instance if required
   ansible.builtin.reboot:
+  throttle: 1
   when: reboot_required.stat.exists
   listen: "reboot-required"

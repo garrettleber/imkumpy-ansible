@@ -5,6 +5,7 @@ services:
   mc-velocity-proxy:
     image: itzg/bungeecord:latest
     container_name: mc-velocity-proxy
+    restart: always
     volumes:
       - ./data/mc-velocity-proxy:/server
     ports:
