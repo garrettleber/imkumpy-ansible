@@ -1,0 +1,36 @@
+---
+- name: Create the qbittorrent directory
+  ansible.builtin.file:
+    path: "/home/{{ service_account }}/qbittorrent"
+    state: directory
+    owner: "{{ service_account }}"
+    group: "{{ service_account }}"
+    mode: "0755"
+  tags: qbittorrent
+
+- name: Copy over qbittorrent docker-compose.yml
+  ansible.builtin.copy:
+    src: "files/docker-compose.yml"
+    dest: "/home/{{ service_account }}/qbittorrent/docker-compose.yml"
+    owner: "{{ service_account }}"
+    group: "{{ service_account }}"
+    mode: "0644"
+  tags: qbittorrent
+
+- name: Create wireguard config directory
+  ansible.builtin.file:
+    path: "/home/{{ service_account }}/qbittorrent/config/wireguard"
+    state: directory
+    owner: "{{ service_account }}"
+    group: "{{ service_account }}"
+    mode: "0775"
+  tags: qbittorrent
+
+- name: Configure wireguard client
+  ansible.builtin.copy:
+    content: "{{ qbittorrent_wireguard_config }}"
+    dest: "/home/{{ service_account }}/qbittorrent/config/wireguard/wg0.conf"
+    owner: "{{ service_account }}"
+    group: "{{ service_account }}"
+    mode: "0775"
+  tags: qbittorrent

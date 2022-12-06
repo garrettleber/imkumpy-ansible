@@ -1,0 +1,11 @@
+---
+# roles/common_debian
+create_swap: true
+iptables_custom_rules:
+  - comment: qbittorrent web ui
+    port: "8080"
+    protocol: tcp
+
+# roles/qbittorrent
+service_account: lab
+qbittorrent_wireguard_config: "{{ vault_qbittorrent_wireguard_config }}"

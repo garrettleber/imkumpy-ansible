@@ -1,7 +1,6 @@
 ---
 - name: Provision Minecraft server(s)
   hosts: prod-mc
-  gather_facts: true
   become: true
   roles:
     - role: nfs_client
