@@ -31,7 +31,7 @@ users: # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/sub
 default_user_groups: "sudo"
 
 # roles/nfs_client
-sharedrive_location: truenasv2.kumpdev.com:/mnt/Primary/nfs
+sharedrive_location: 192.168.0.104:/mnt/user/primary
 
 # roles/aws_cli
 aws_access_key_id: "{{ vault_aws_access_key_id }}"

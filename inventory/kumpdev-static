@@ -1,11 +1,9 @@
 [nut_clients:children]
 proxmox_hypervisors
-# truenas.kumpdev.com -- this one is currently manually configured through TrueNAS GUI
+# unraid.int.kumpdev.com -- this one is currently manually configured through Unraid GUI
 
 [proxmox_hypervisors]
 proxmox-1.int.kumpdev.com ansible_user=root
-proxmox-2.int.kumpdev.com ansible_user=root
-proxmox-3.int.kumpdev.com ansible_user=root
 
 # [vps]
 # vps.kumpdev.com ansible_user=root

@@ -1,6 +1,6 @@
 ---
 - name: Provision DNS nameservers
-  hosts: ns
+  hosts: ns1,ns2
   become: true
   roles:
     - role: pihole
