@@ -54,19 +54,6 @@ omada.kumpdev.com {
 	}
 }
 
-photoprism.kumpdev.com {
-	@internal {
-		remote_ip 192.168.0.0/16
-	}
-	handle @internal {
-		reverse_proxy 192.168.0.104:20800
-	}
-	# else
-	respond /* "403 Access Denied" 403 {
-		close
-	}
-}
-
 plex.kumpdev.com {
 	encode gzip
 	@internal {
@@ -106,42 +93,6 @@ ryzen-proxmox.kumpdev.com {
 	}
 	handle @internal {
 		reverse_proxy 192.168.0.100:8006 {
-			transport http {
-				tls_insecure_skip_verify
-			}
-		}
-	}
-	# else
-	respond /* "403 Access Denied" 403 {
-		close
-	}
-}
-
-macmini-proxmox.kumpdev.com {
-	@internal {
-		remote_ip 192.168.0.0/16
-		remote_ip 172.16.0.0/12
-	}
-	handle @internal {
-		reverse_proxy 192.168.0.103:8006 {
-			transport http {
-				tls_insecure_skip_verify
-			}
-		}
-	}
-	# else
-	respond /* "403 Access Denied" 403 {
-		close
-	}
-}
-
-hpprodesk-proxmox.kumpdev.com {
-	@internal {
-		remote_ip 192.168.0.0/16
-		remote_ip 172.16.0.0/12
-	}
-	handle @internal {
-		reverse_proxy 192.168.0.102:8006 {
 			transport http {
 				tls_insecure_skip_verify
 			}

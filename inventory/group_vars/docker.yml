@@ -1,4 +1,0 @@
----
-# role: geerlingguy.docker
-docker_install_compose: true
-docker_users: ["lab"]

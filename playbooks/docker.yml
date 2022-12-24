@@ -1,7 +1,9 @@
 ---
 - name: Setup Docker container runtime and applications
-  hosts: docker
+  hosts: dockerhost,gitea,omada,prod-mc,qbittorrent
   become: true
   roles:
     - role: geerlingguy.docker
+      vars:
+        docker_install_compose: true
     - role: docker_deployment
