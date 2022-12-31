@@ -112,6 +112,10 @@ mattermost.kumpdev.com {
 	reverse_proxy 192.168.0.97:8065
 }
 
+requests.kumpdev.com {
+	reverse_proxy unraid.int.kumpdev.com:5055
+}
+
 uptimekuma.kumpdev.com {
 	reverse_proxy rpi.kumpdev.com:3001
 }

@@ -1,0 +1,5 @@
+---
+ansible_user: root
+
+# roles/common_debian
+setup_iptables: false
