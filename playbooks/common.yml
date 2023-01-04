@@ -4,3 +4,4 @@
   become: true
   roles:
     - role: common_debian
+    - role: nfs_client

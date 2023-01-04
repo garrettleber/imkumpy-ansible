@@ -8,6 +8,7 @@ iptables_custom_rules:
 
 # roles/nfs_client
 sharedrive_location: 192.168.0.104:/mnt/user/media
+setup_nfs_share: true
 
 # roles/qbittorrent
 service_account: lab

@@ -3,6 +3,5 @@
   hosts: prod-mc
   become: true
   roles:
-    - role: nfs_client
     - role: aws_cli
     - role: minecraft_server

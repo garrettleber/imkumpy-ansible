@@ -7,6 +7,7 @@
     update_cache: true
   become: true
   tags: nfs-client
+  when: setup_nfs_share
 
 # Needed on WSL Hosts, however ansible isn't working to deploy, try the following commands
 # sudo /etc/init.d/rpcbind start
@@ -19,6 +20,7 @@
     mode: 0755
   become: true
   tags: nfs-client
+  when: setup_nfs_share
 
 - name: Mount /media/shared drive
   ansible.posix.mount:
@@ -29,3 +31,4 @@
     state: mounted
   become: true
   tags: nfs-client
+  when: setup_nfs_share
