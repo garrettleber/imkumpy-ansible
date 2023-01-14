@@ -7,6 +7,7 @@ services:
       - ./config/:/mosquitto/config/
       - ./log/:/mosquitto/log/
       - ./data:/mosquitto/data/
+    restart: always
     ports:
       - 1883:1883
       - 9001:9001

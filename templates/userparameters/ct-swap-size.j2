@@ -1,0 +1,1 @@
+UserParameter=ct.swap.size[*],free -b | awk '$ 1 == "Swap:" {total=$ 2; used=$ 3; free=$ 4; pfree=($ 4*100/$ 2); pused=($ 3*100/$ 2); if("$1" == "") {printf("%.0f", free )} else {printf("%.0f", $1 "" )} }'

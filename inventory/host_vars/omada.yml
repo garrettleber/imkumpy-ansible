@@ -1,7 +1,6 @@
 ---
 # roles/docker_deployment
 service_account: lab
-docker_apps: ["omada-controller"] # a folder must be present with same name in files/
 
 # roles/common_debian
 iptables_custom_rules:

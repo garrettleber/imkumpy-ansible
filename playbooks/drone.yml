@@ -1,6 +1,0 @@
----
-- name: Setup Drone deployment on dockerhost
-  hosts: dockerhost
-  become: true
-  roles:
-    - role: drone

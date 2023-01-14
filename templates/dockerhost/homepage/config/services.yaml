@@ -1,0 +1,120 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/services
+
+- Hypervisors:
+    - Ryzen-Proxmox:
+        href: https://ryzen-proxmox.kumpdev.com/
+        widget:
+            type: proxmox
+            url: https://ryzen-proxmox.kumpdev.com
+            username: {{ vault_homepage_proxmox_user }}
+            password: {{ vault_homepage_proxmox_pass }}
+
+    - Proxmox-Backup:
+        href: https://proxmox-backup.int.kumpdev.com:8007/
+
+    - Unraid:
+        href: http://unraid.int.kumpdev.com/
+
+- Dockerhost:
+    - Caddy (RP):
+        server: my-docker
+        container: caddy
+
+    - Drone Server:
+        description: CI/CD Server
+        server: my-docker
+        container: drone
+
+    - Drone Runner:
+        description: CI/CD Execution Environment
+        server: my-docker
+        container: drone_runner
+
+- General Services:
+    - Syncthing Server:
+        href: https://syncthing.int.kumpdev.com:8384/
+    - Uptime Kuma:
+        href: http://rpi.kumpdev.com:3001/dashboard/
+    - Gitea:
+        href: https://gitea.kumpdev.com/
+
+- Media Management:
+    - Plex:
+        href: http://unraid.int.kumpdev.com:32400/
+        widget:
+          type: plex
+          url: http://unraid.int.kumpdev.com:32400
+          key: {{ vault_homepage_plex_key }}
+    - Overseerr:
+        href: https://requests.kumpdev.com/
+        widget:
+          type: overseerr
+          url: http://unraid.int.kumpdev.com:5055
+          key: {{ vault_overseerr_api_key }}
+    - Sonarr:
+        href: http://unraid.int.kumpdev.com:8989/
+        widget:
+          type: sonarr
+          url: http://unraid.int.kumpdev.com:8989
+          key: {{ vault_sonarr_api_key }}
+    - Radarr:
+        href: http://unraid.int.kumpdev.com:7878/
+        widget:
+          type: radarr
+          url: http://unraid.int.kumpdev.com:7878
+          key: {{ vault_radarr_api_key }}
+    - Lidarr:
+        href: http://unraid.int.kumpdev.com:8686/
+        widget:
+          type: lidarr
+          url: http://unraid.int.kumpdev.com:8686
+          key: {{ vault_lidarr_api_key }}
+    - Prowlarr:
+        href: http://unraid.int.kumpdev.com:9696/
+        widget:
+          type: prowlarr
+          url: http://unraid.int.kumpdev.com:9696
+          key: {{ vault_prowlarr_api_key }}
+    - qBittorrent:
+        href: http://unraid.int.kumpdev.com:8080/
+        widget:
+          type: qbittorrent
+          url: http://unraid.int.kumpdev.com:8080
+          username: {{ vault_qbittorrent_user }}
+          password: {{ vault_qbittorrent_pass }}
+    - SABnzbd:
+        href: http://192.168.0.104:8081/
+        widget:
+          type: sabnzbd
+          url: http://192.168.0.104:8081
+          key: {{ vault_sabnzbd_api_key }}
+
+- Network:
+    - Omada:
+        href: https://omada.kumpdev.com/
+        widget:
+            type: omada
+            url: https://omada.int.kumpdev.com:8043
+            username: {{ vault_omada_user }}
+            password: '{{ vault_omada_pass }}'
+            site: Default
+    - PiHole (Active VIP):
+        href: http://pihole.kumpdev.com/admin/
+        widget:
+          type: pihole
+          url: http://pihole.kumpdev.com
+          key: {{ vault_pihole_api_key }}
+    - PiHole (ns1):
+        href: http://ns1.int.kumpdev.com/admin/
+        widget:
+          type: pihole
+          url: http://ns1.int.kumpdev.com
+          key: {{ vault_pihole_api_key }}
+    - PiHole (ns2):
+        href: http://ns2.int.kumpdev.com/admin/
+        widget:
+          type: pihole
+          url: http://ns2.int.kumpdev.com
+          key: {{ vault_pihole_api_key }}

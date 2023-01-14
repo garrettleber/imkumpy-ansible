@@ -1,10 +1,7 @@
 [nut_clients:children]
-proxmox_hypervisors
+#proxmox_nodes TODO FIX
 proxmox_backup_servers
 # unraid.int.kumpdev.com -- this one is currently manually configured through Unraid GUI
-
-[proxmox_hypervisors]
-proxmox-1.int.kumpdev.com ansible_user=root
 
 [proxmox_backup_servers]
 proxmox-backup.int.kumpdev.com ansible_user=root

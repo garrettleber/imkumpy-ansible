@@ -1,5 +1,6 @@
 ---
 ansible_user: lab
+ansible_python_interpreter: /usr/bin/python3
 system_timezone: "America/Indiana/Indianapolis"
 
 # roles/common_debian
@@ -36,3 +37,11 @@ sharedrive_location: 192.168.0.104:/mnt/user/primary
 # roles/aws_cli
 aws_access_key_id: "{{ vault_aws_access_key_id }}"
 aws_secret_access_key: "{{ vault_aws_secret_access_key }}"
+
+# role: community.zabbix.zabbix_agent
+zabbix_agent_server: 192.168.0.93
+zabbix_agent_distribution_release: buster # role doesn't list support for bullseye yet
+zabbix_agent_userparameters:
+  - name: ct-memory-size
+  - name: ct-swap-size
+  - name: ct-cpu-load

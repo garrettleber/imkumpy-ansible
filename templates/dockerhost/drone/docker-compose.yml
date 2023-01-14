@@ -9,9 +9,9 @@ services:
     restart: unless-stopped
     environment:
       - DRONE_GITEA_SERVER=https://gitea.kumpdev.com
-      - DRONE_GITEA_CLIENT_ID={{ drone_gitea_client_id }}
-      - DRONE_GITEA_CLIENT_SECRET={{ drone_gitea_client_secret }}
-      - DRONE_RPC_SECRET={{ drone_rpc_secret }}
+      - DRONE_GITEA_CLIENT_ID={{ vault_drone_gitea_client_id }}
+      - DRONE_GITEA_CLIENT_SECRET={{ vault_drone_gitea_client_secret }}
+      - DRONE_RPC_SECRET={{ vault_drone_rpc_secret }}
       - DRONE_SERVER_HOST=drone.kumpdev.com
       - DRONE_SERVER_PROTO=https
     networks:
@@ -25,7 +25,7 @@ services:
     environment:
       - DRONE_RPC_PROTO=https
       - DRONE_RPC_HOST=drone.kumpdev.com
-      - DRONE_RPC_SECRET={{ drone_rpc_secret }}
+      - DRONE_RPC_SECRET={{ vault_drone_rpc_secret }}
       - DRONE_RUNNER_CAPACITY=2
       - DRONE_RUNNER_NAME=default-runner
 

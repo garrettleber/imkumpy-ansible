@@ -4,3 +4,4 @@ disable_ipv6: true
 relayhost:
 update_packages: true
 setup_iptables: true
+setup_ssh: true

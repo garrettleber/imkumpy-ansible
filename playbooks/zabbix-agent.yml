@@ -1,0 +1,8 @@
+---
+- name: Setup zabbix agent on all hosts
+  hosts: all
+  become: true
+  gather_facts: true
+  tags: zabbix-agent
+  roles:
+    - role: community.zabbix.zabbix_agent

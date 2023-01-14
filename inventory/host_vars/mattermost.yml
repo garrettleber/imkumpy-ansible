@@ -8,4 +8,7 @@ iptables_custom_rules:
     port: "443"
     protocol: tcp
 
+# role: community.zabbix.zabbix_agent
+zabbix_agent_distribution_release: focal # override var in all
+
 # mattermost is manually configured, TODO

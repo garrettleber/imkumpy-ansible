@@ -1,6 +1,0 @@
----
-- name: Provision torrent server(s)
-  hosts: qbittorrent
-  become: true
-  roles:
-    - role: qbittorrent_vpn

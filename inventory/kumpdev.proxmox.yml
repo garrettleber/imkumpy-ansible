@@ -7,6 +7,8 @@ keyed_groups:
     # proxmox_tags_parsed is an example of a fact only returned when 'want_facts=true'
   - key: proxmox_tags_parsed
     separator: ""
+groups:
+  ns: '"ns" in inventory_hostname'
 want_proxmox_nodes_ansible_host: true
 compose:
   ansible_host: inventory_hostname + '.int.kumpdev.com'

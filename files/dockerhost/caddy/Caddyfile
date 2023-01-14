@@ -35,6 +35,20 @@ gitea.kumpdev.com {
 	}
 }
 
+homepage.kumpdev.com {
+	@internal {
+		remote_ip 192.168.0.0/16
+		remote_ip 172.16.0.0/12
+	}
+	handle @internal {
+		reverse_proxy homepage:3000
+	}
+	# else
+	respond /* "403 Access Denied" 403 {
+		close
+	}
+}
+
 omada.kumpdev.com {
 	@internal {
 		remote_ip 192.168.0.0/16
@@ -68,24 +82,6 @@ plex.kumpdev.com {
 	}
 }
 
-qbittorrent.kumpdev.com {
-	@internal {
-		remote_ip 192.168.0.0/16
-	}
-	handle @internal {
-		reverse_proxy qbittorrent.int.kumpdev.com:8080 {
-			header_up Host qbittorrent.int.kumpdev.com:8080
-			header_up X-Forwarded-Host {hostport}
-			header_up -Origin
-			header_up -Referer
-		}
-	}
-	# else
-	respond /* "403 Access Denied" 403 {
-		close
-	}
-}
-
 ryzen-proxmox.kumpdev.com {
 	@internal {
 		remote_ip 192.168.0.0/16
@@ -97,6 +93,24 @@ ryzen-proxmox.kumpdev.com {
 				tls_insecure_skip_verify
 			}
 		}
+	}
+	# else
+	respond /* "403 Access Denied" 403 {
+		close
+	}
+}
+
+zabbix.kumpdev.com {
+	encode gzip
+	root * /usr/share/zabbix
+	php_fastcgi unix//run/php/php7.4-fpm.sock
+	@internal {
+		remote_ip 192.168.0.0/16
+		remote_ip 172.16.0.0/12
+	}
+	handle @internal {
+		rewrite * /zabbix/{uri}
+		reverse_proxy zabbix.int.kumpdev.com
 	}
 	# else
 	respond /* "403 Access Denied" 403 {

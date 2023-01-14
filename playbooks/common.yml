@@ -1,7 +1,8 @@
 ---
-- name: Run common tasks for all hosts # restricted for testing/development currently
+- name: Run common tasks for all hosts
   hosts: all
   become: true
+  tags: common
   roles:
     - role: common_debian
     - role: nfs_client
