@@ -1,16 +1,16 @@
 ---
-- name: restart postfix
+- name: Restart postfix
   ansible.builtin.service:
     name: postfix
     state: restarted
 
-- name: save ipv4 iptables configuration
+- name: Save ipv4 iptables configuration
   ansible.builtin.shell: iptables-save > /etc/iptables/rules.v4
 
-- name: restart opendkim
+- name: Restart opendkim
   ansible.builtin.service:
     name: opendkim
     state: restarted
 
-- name: new aliases
+- name: New aliases
   ansible.builtin.command: newaliases

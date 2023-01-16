@@ -1,44 +1,44 @@
 ---
 - name: Install standard packages
-  include_tasks: standard-packages.yml
+  ansible.builtin.include_tasks: standard-packages.yml
   tags: standard-packages
 
 - name: Disable IPv6
-  include_tasks: disable-ipv6.yml
+  ansible.builtin.include_tasks: disable-ipv6.yml
   when: disable_ipv6
   tags: disable-ipv6
 
 - name: Install and configure iptables
-  include_tasks: iptables.yml
+  ansible.builtin.include_tasks: iptables.yml
   when: setup_iptables
   tags: iptables
 
 - name: Create users, groups, sudo permissions
-  include_tasks: users.yml
+  ansible.builtin.include_tasks: users.yml
   tags: users
 
 - name: Configure users (bashrc, vimrc, etc.)
-  include_tasks: user-config.yml
+  ansible.builtin.include_tasks: user-config.yml
   tags: user-config
 
 - name: Configure SSH
-  include_tasks: sshd.yml
+  ansible.builtin.include_tasks: sshd.yml
   when: setup_ssh
   tags: sshd
 
 - name: Configure logrotate
-  include_tasks: logrotate.yml
+  ansible.builtin.include_tasks: logrotate.yml
   tags: logrotate
 
 - name: Configure email relay
-  include_tasks: postfix.yml
+  ansible.builtin.include_tasks: postfix.yml
   tags: postfix
 
 - name: Update packages
-  include_tasks: update-packages.yml
+  ansible.builtin.include_tasks: update-packages.yml
   tags: update-packages
   when: update_packages
 
 - name: Configure swap
-  include_tasks: swap.yml
+  ansible.builtin.include_tasks: swap.yml
   tags: swap

@@ -1,12 +1,12 @@
 ---
 - name: Install and configure postfix
-  include_tasks: postfix.yml
+  ansible.builtin.include_tasks: postfix.yml
   tags: postfix
 
 - name: Install and configure dkim
-  include_tasks: dkim.yml
+  ansible.builtin.include_tasks: dkim.yml
   tags: dkim
 
 - name: Configure email aliases
-  include_tasks: aliases.yml
+  ansible.builtin.include_tasks: aliases.yml
   tags: aliases

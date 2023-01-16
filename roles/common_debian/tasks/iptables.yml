@@ -104,13 +104,13 @@
   ansible.builtin.iptables:
     chain: INPUT
     comment: "Accept {{ item.comment }}"
-    ctstate: "{{ item.ctstate|default(omit) }}"
-    destination_port: "{{ item.port|default(omit) }}"
-    in_interface: "{{ item.in_interface|default(omit) }}"
+    ctstate: "{{ item.ctstate | default(omit) }}"
+    destination_port: "{{ item.port | default(omit) }}"
+    in_interface: "{{ item.in_interface | default(omit) }}"
     jump: ACCEPT
-    match: "{{ item.match|default(omit) }}"
-    protocol: "{{ item.protocol|default(omit) }}"
-    source: "{{ item.source|default(omit) }}"
+    match: "{{ item.match | default(omit) }}"
+    protocol: "{{ item.protocol | default(omit) }}"
+    source: "{{ item.source | default(omit) }}"
   notify: Save iptables configuration
   loop: "{{ iptables_custom_rules }}"
   when: setup_iptables and iptables_custom_rules is defined

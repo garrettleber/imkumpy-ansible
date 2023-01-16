@@ -8,5 +8,5 @@
   with_items:
     - name: me
       value: "garrett@garrettleber.com, lebergarrett@gmail.com"
-  notify: new aliases
+  notify: New aliases
   tags: aliases

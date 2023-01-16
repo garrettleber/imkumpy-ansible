@@ -7,7 +7,7 @@
   when: install_nut
   tags: nut-client
 
-- name: edit /etc/nut/upsmon.conf
+- name: Configure /etc/nut/upsmon.conf
   ansible.builtin.blockinfile:
     path: /etc/nut/upsmon.conf
     block: |
@@ -51,13 +51,13 @@
       NOCOMMWARNTIME 600
 
       FINALDELAY 5
-  notify: restart nut-client
+  notify: Restart nut-client
   tags: nut-client
 
-- name: edit /etc/nut/nut.conf
+- name: Configure /etc/nut/nut.conf
   ansible.builtin.lineinfile:
     path: /etc/nut/nut.conf
     regexp: '^MODE='
     line: MODE=netclient
-  notify: restart nut-client
+  notify: Restart nut-client
   tags: nut-client

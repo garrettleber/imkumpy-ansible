@@ -1,12 +1,12 @@
 ---
 ##### sshd #####
-- name: restart sshd
+- name: Restart sshd
   ansible.builtin.systemd:
     name: sshd
     state: restarted
 
 ##### postfix #####
-- name: restart postfix
+- name: Restart postfix
   ansible.builtin.systemd:
     name: postfix
     state: restarted
@@ -39,7 +39,7 @@
     - chain: OUTPUT
       policy: ACCEPT
   listen: Set iptables policies
-  
+
 - name: Save iptables configuration
   ansible.builtin.shell: iptables-save > /etc/iptables/rules.v4 && ip6tables-save > /etc/iptables/rules.v6
 
@@ -53,7 +53,7 @@
   listen: "init swap"
 
 ##### disable-ipv6 #####
-- name: reload kernel configuration
+- name: Reload kernel configuration
   ansible.builtin.command: sysctl -p
 
 ##### general #####

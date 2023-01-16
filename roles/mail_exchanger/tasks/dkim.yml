@@ -27,7 +27,7 @@
       value: "sv"
     - name: SubDomains
       value: "no"
-  notify: restart opendkim
+  notify: Restart opendkim
   tags: dkim
 
 - name: Add block to end of dkim configuration
@@ -45,7 +45,7 @@
 
       # A set of internal hosts whose mail should be signed
       InternalHosts       /etc/opendkim/trusted.hosts
-  notify: restart opendkim
+  notify: Restart opendkim
   tags: dkim
 
 - name: Create directory for keys
@@ -68,7 +68,7 @@
       value: "default._domainkey.kumpdev.com"
     - name: "*@mx.kumpdev.com"
       value: "default._domainkey.kumpdev.com"
-  notify: restart opendkim
+  notify: Restart opendkim
   tags: dkim
 
 - name: Create the key table
@@ -81,7 +81,7 @@
   with_items:
     - name: "default._domainkey.kumpdev.com"
       value: "kumpdev.com:default:/etc/opendkim/keys/kumpdev.com/default.private"
-  notify: restart opendkim
+  notify: Restart opendkim
   tags: dkim
 
 - name: Create the trusted hosts file
@@ -94,7 +94,7 @@
     - "127.0.0.1"
     - "localhost"
     - "*.kumpdev.com"
-  notify: restart opendkim
+  notify: Restart opendkim
   tags: dkim
 
 - name: Append trusted networks to trusted hosts file
@@ -104,7 +104,7 @@
     regexp: "^{{ item }}"
     mode: 0644
   loop: "{{ trusted_networks }}"
-  notify: restart opendkim
+  notify: Restart opendkim
   tags: dkim
 
 - name: Create the directory for the domain
@@ -125,7 +125,7 @@
 - name: Generate Keys
   ansible.builtin.command: "opendkim-genkey -b 2048 -d kumpdev.com -D /etc/opendkim/keys/kumpdev.com -s default -v"
   when: not dkim_priv_key.stat.exists
-  notify: restart opendkim
+  notify: Restart opendkim
   tags: dkim
 
 - name: Change private key permissions and ownership
@@ -153,7 +153,7 @@
   with_items:
     - name: "Socket"
       value: "local:/var/spool/postfix/opendkim/opendkim.sock"
-  notify: restart opendkim
+  notify: Restart opendkim
   tags: dkim
 
 - name: Establish Socket
@@ -164,7 +164,7 @@
   with_items:
     - name: "SOCKET"
       value: '"local:/var/spool/postfix/opendkim/opendkim.sock"'
-  notify: restart opendkim
+  notify: Restart opendkim
   tags: dkim
 
 - name: Configure postfix
@@ -182,5 +182,5 @@
       value: "local:/opendkim/opendkim.sock"
     - name: non_smtpd_milters
       value: "$smtpd_milters"
-  notify: restart opendkim
+  notify: Restart opendkim
   tags: dkim

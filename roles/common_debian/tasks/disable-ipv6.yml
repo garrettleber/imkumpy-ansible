@@ -12,7 +12,7 @@
     - "net.ipv6.conf.default.disable_ipv6 = 1"
     - "net.ipv6.conf.lo.disable_ipv6 = 1"
   when: disable_ipv6
-  notify: reload kernel configuration
+  notify: Reload kernel configuration
   tags: disable-ipv6
 
 - name: Remove IPv6 lines from /etc/hosts
@@ -24,5 +24,5 @@
     regexp: "::"
     state: absent
   when: disable_ipv6
-  notify: reload kernel configuration
+  notify: Reload kernel configuration
   tags: disable-ipv6

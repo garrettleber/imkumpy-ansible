@@ -27,5 +27,5 @@
     - name: inet_interfaces
       value: "all"
   when: postfix_config_file.stat.exists
-  notify: restart postfix
+  notify: Restart postfix
   tags: postfix

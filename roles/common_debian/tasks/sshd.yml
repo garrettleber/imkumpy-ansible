@@ -6,7 +6,7 @@
     owner: root
     group: root
     mode: 0644
-  notify: restart sshd
+  notify: Restart sshd
   tags: sshd
 
 - name: Ensure root ssh dir exists

@@ -21,7 +21,7 @@
     - name: inet_protocols
       value: "ipv4"
   when: postfix_config_file.stat.exists
-  notify: restart postfix
+  notify: Restart postfix
   tags: postfix
 
 - name: Enable postfix service

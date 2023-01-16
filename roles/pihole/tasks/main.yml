@@ -128,7 +128,7 @@
     owner: root
     group: root
     mode: 0644
-  notify: restart keepalived
+  notify: Restart keepalived
   tags: pihole
 
 - name: Start and enable keepalived service
