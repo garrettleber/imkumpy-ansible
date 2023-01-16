@@ -1,3 +1,4 @@
+# code: language=ansible
 ---
 - name: Download pihole installer
   ansible.builtin.get_url:

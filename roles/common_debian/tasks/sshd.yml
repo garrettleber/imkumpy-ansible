@@ -1,3 +1,4 @@
+# code: language=ansible
 ---
 - name: Copy sshd configuration
   ansible.builtin.copy:

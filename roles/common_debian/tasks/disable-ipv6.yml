@@ -1,3 +1,4 @@
+# code: language=ansible
 ---
 - name: Disable IPv6 in kernel
   ansible.builtin.lineinfile:

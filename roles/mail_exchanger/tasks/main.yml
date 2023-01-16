@@ -1,3 +1,4 @@
+# code: language=ansible
 ---
 - name: Install and configure postfix
   ansible.builtin.include_tasks: postfix.yml

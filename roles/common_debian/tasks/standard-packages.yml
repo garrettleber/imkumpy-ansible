@@ -1,3 +1,4 @@
+# code: language=ansible
 ---
 - name: Install Standard Packages
   ansible.builtin.apt:

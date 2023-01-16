@@ -1,3 +1,4 @@
+# code: language=ansible
 ---
 - name: Install NFS
   ansible.builtin.apt:

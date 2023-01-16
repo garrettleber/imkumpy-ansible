@@ -1,3 +1,4 @@
+# code: language=ansible
 ---
 - name: Check if postfix config file exists # it always should on install, this is for ansible --check mode
   ansible.builtin.stat:

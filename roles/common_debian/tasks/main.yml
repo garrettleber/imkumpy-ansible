@@ -1,3 +1,4 @@
+# code: language=ansible
 ---
 - name: Install standard packages
   ansible.builtin.include_tasks: standard-packages.yml

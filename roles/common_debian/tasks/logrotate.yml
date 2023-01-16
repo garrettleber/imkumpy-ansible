@@ -1,3 +1,4 @@
+# code: language=ansible
 ---
 - name: Use cron.daily for logrotate instead of Debian 11 default systemd timers
   ansible.builtin.copy:
