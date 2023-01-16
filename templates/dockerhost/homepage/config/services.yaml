@@ -18,7 +18,8 @@
         href: http://unraid.int.kumpdev.com/
 
 - Dockerhost:
-    - Caddy (RP):
+    - Caddy:
+        description: Reverse Proxy
         server: my-docker
         container: caddy
 

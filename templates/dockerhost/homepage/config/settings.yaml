@@ -2,6 +2,18 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/en/configs/settings
 
-providers:
-  openweathermap: openweathermapapikey
-  weatherapi: weatherapiapikey
+title: Kumpdev Homepage
+theme: dark
+color: slate
+headerStyle: clean
+
+layout:
+  Hypervisors:
+    style: row
+    columns: 3
+  Dockerhost:
+    style: row
+    columns: 3
+  General Services:
+    style: row
+    columns: 3
