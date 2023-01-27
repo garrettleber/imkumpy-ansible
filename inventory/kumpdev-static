@@ -9,5 +9,5 @@ proxmox-backup.int.kumpdev.com ansible_user=root
 # [vps]
 # vps.kumpdev.com ansible_user=root
 
-# [rpi]
-# rpi.kumpdev.com
+[rpi]
+rpi.kumpdev.com

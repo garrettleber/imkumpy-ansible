@@ -1,0 +1,8 @@
+---
+# roles/common_debian
+setup_iptables: false
+update_packages: false
+setup_ssh: false
+
+# role: community.zabbix.zabbix_agent
+zabbix_agent_install_agent_only: true

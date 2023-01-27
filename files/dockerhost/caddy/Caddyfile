@@ -2,32 +2,17 @@
 # Internal Services
 #
 
-drone.kumpdev.com {
-	@notStream {
-		not path /stream/
-	}
-	encode @notStream gzip
-
+git.kumpdev.com {
 	@internal {
 		remote_ip 192.168.0.0/16
 		remote_ip 172.16.0.0/12
 	}
 	handle @internal {
-		reverse_proxy drone:80
-	}
-	# else
-	respond /* "403 Access Denied" 403 {
-		close
-	}
-}
-
-gitea.kumpdev.com {
-	@internal {
-		remote_ip 192.168.0.0/16
-		remote_ip 172.16.0.0/12
-	}
-	handle @internal {
-		reverse_proxy http://192.168.0.60:3000
+		reverse_proxy gitlab.int.kumpdev.com:443 {
+			transport http {
+				tls_insecure_skip_verify
+			}
+		}
 	}
 	# else
 	respond /* "403 Access Denied" 403 {
@@ -128,8 +113,4 @@ mattermost.kumpdev.com {
 
 requests.kumpdev.com {
 	reverse_proxy unraid.int.kumpdev.com:5055
-}
-
-uptimekuma.kumpdev.com {
-	reverse_proxy rpi.kumpdev.com:3001
 }

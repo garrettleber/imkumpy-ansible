@@ -23,23 +23,13 @@
         server: my-docker
         container: caddy
 
-    - Drone Server:
-        description: CI/CD Server
-        server: my-docker
-        container: drone
-
-    - Drone Runner:
-        description: CI/CD Execution Environment
-        server: my-docker
-        container: drone_runner
-
 - General Services:
     - Syncthing Server:
         href: https://syncthing.int.kumpdev.com:8384/
-    - Uptime Kuma:
-        href: http://rpi.kumpdev.com:3001/dashboard/
-    - Gitea:
-        href: https://gitea.kumpdev.com/
+    - Zabbix:
+        href: http://zabbix.int.kumpdev.com/zabbix/
+    - GitLab:
+        href: https://git.kumpdev.com/
 
 - Media Management:
     - Plex:

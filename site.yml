@@ -2,8 +2,8 @@
 - name: Run common tasks for all hosts
   import_playbook: playbooks/common.yml
 
-# - name: Setup zabbix agent on all hosts
-#   import_playbook: playbooks/zabbix-agent.yml
+- name: Setup zabbix agent on all hosts
+  import_playbook: playbooks/zabbix-agent.yml
 
 - name: Setup nut client for UPS safe shutdowns
   import_playbook: playbooks/nut_clients.yml
@@ -22,3 +22,7 @@
 
 - name: Provision Minecraft server(s)
   import_playbook: playbooks/prod_mc.yml
+#
+# Disabled because it will overwrite custom configuration on server
+# - name: Provision Gitlab server(s)
+#   import_playbook: playbooks/gitlab.yml

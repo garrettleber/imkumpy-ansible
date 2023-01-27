@@ -15,106 +15,39 @@
       - iptables-persistent
     state: present
     update_cache: true
-  notify: Set iptables policies
   when: setup_iptables
   tags: iptables
 
-- name: Accept loopback interface connections
+- name: Set the iptables ipv6 policies
   ansible.builtin.iptables:
-    chain: INPUT
-    in_interface: lo
-    jump: ACCEPT
-    comment: "Accept loopback interface connections"
-  notify: Save iptables configuration
-  when: setup_iptables
+    ip_version: ipv6
+    chain: "{{ item.chain }}"
+    policy: "{{ item.policy }}"
+  loop:
+    - chain: INPUT
+      policy: ACCEPT
+    - chain: FORWARD
+      policy: ACCEPT
+    - chain: OUTPUT
+      policy: ACCEPT
   tags: iptables
 
-- name: Accept SSH connections
+- name: Set the iptables ipv4 policies
   ansible.builtin.iptables:
-    chain: INPUT
-    protocol: tcp
-    ctstate: NEW,ESTABLISHED
-    destination_port: "22"
-    jump: ACCEPT
-    comment: "Accept SSH connections"
-  notify: Save iptables configuration
-  when: setup_iptables
+    ip_version: ipv4
+    chain: "{{ item.chain }}"
+    policy: "{{ item.policy }}"
+  loop:
+    - chain: INPUT
+      policy: ACCEPT
+    - chain: FORWARD
+      policy: ACCEPT
+    - chain: OUTPUT
+      policy: ACCEPT
   tags: iptables
 
-- name: Accept Zabbix connections
-  ansible.builtin.iptables:
-    chain: INPUT
-    protocol: tcp
-    ctstate: NEW,ESTABLISHED
-    destination_port: "10050"
-    jump: ACCEPT
-    comment: "Accept Zabbix connections"
-  notify: Save iptables configuration
-  when: setup_iptables
-  tags: iptables
-
-- name: Accept related and established connections
-  ansible.builtin.iptables:
-    chain: INPUT
-    ctstate: RELATED,ESTABLISHED
-    jump: ACCEPT
-    comment: "Accept related and established connections"
-  notify: Save iptables configuration
-  when: setup_iptables
-  tags: iptables
-
-- name: Accept DNS connections
-  ansible.builtin.iptables:
-    chain: INPUT
-    protocol: "{{ item }}"
-    ctstate: ESTABLISHED
-    source_port: "53"
-    destination_port: 1024:65535
-    jump: ACCEPT
-    comment: "Accept DNS connections"
-  notify: Save iptables configuration
-  loop: ["tcp", "udp"]
-  when: setup_iptables
-  tags: iptables
-
-- name: Accept SNMP connections
-  ansible.builtin.iptables:
-    chain: INPUT
-    protocol: udp
-    ctstate: ESTABLISHED
-    source_port: "123"
-    jump: ACCEPT
-    comment: "Accept SNMP connections"
-  notify: Save iptables configuration
-  when: setup_iptables
-  tags: iptables
-
-- name: Accept Pings
-  ansible.builtin.iptables:
-    chain: INPUT
-    protocol: icmp
-    ctstate: NEW,ESTABLISHED,RELATED
-    icmp_type: "8"
-    jump: ACCEPT
-    comment: "Accept Pings"
-  notify: Save iptables configuration
-  when: setup_iptables
-  tags: iptables
-
-- name: Custom rules
-  ansible.builtin.iptables:
-    chain: INPUT
-    comment: "Accept {{ item.comment }}"
-    ctstate: "{{ item.ctstate | default(omit) }}"
-    destination_port: "{{ item.port | default(omit) }}"
-    in_interface: "{{ item.in_interface | default(omit) }}"
-    jump: ACCEPT
-    match: "{{ item.match | default(omit) }}"
-    protocol: "{{ item.protocol | default(omit) }}"
-    source: "{{ item.source | default(omit) }}"
-  notify: Save iptables configuration
-  loop: "{{ iptables_custom_rules }}"
-  when: setup_iptables and iptables_custom_rules is defined
+- name: Save iptables configuration
+  ansible.builtin.shell: iptables-save > /etc/iptables/rules.v4 && ip6tables-save > /etc/iptables/rules.v6
   tags: iptables
 
 - name: Start and enable iptables service

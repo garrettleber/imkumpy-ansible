@@ -1,0 +1,11 @@
+---
+- name: Configure gitlab server
+  hosts: gitlab
+  gather_facts: true
+  become: true
+  roles:
+    - role: geerlingguy.gitlab
+      vars:
+        gitlab_domain: "kumpdev.com"
+        gitlab_external_url: "https://git.kumpdev.com"
+        gitlab_redirect_http_to_https: false
