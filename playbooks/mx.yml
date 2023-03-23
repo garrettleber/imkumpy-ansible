@@ -1,6 +1,6 @@
 ---
 - name: Provision mail exchanger(s)
-  hosts: mx
+  hosts: mx, mx1
   become: true
   roles:
     - role: mail_exchanger

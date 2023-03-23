@@ -1,0 +1,14 @@
+---
+# roles/mail_exchanger
+domain: imkumpy.com
+trusted_networks:
+  - 192.168.0.0/24
+relayhost: ""
+
+iptables_custom_rules:
+  - comment: SMTP Connections from trusted hosts.
+    ctstate: NEW,ESTABLISHED
+    match: ["tcp", "conntrack"]
+    port: "25"
+    protocol: tcp
+    source: "{{ trusted_networks[0] }}"

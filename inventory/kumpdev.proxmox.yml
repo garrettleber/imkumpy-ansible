@@ -12,4 +12,4 @@ groups:
   k3s_cluster: '"k3s" in inventory_hostname'
 want_proxmox_nodes_ansible_host: true
 compose:
-  ansible_host: inventory_hostname + '.int.kumpdev.com'
+  ansible_host: inventory_hostname + '.imkumpy.in'
