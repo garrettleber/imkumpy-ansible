@@ -65,10 +65,10 @@
     mode: 0644
     create: true
   with_items:
-    - name: "*@kumpdev.com"
-      value: "default._domainkey.kumpdev.com"
-    - name: "*@mx.kumpdev.com"
-      value: "default._domainkey.kumpdev.com"
+    - name: "*@{{ domain }}"
+      value: "default._domainkey.{{ domain }}"
+    - name: "*@mx.{{ domain }}"
+      value: "default._domainkey.{{ domain }}"
   notify: Restart opendkim
   tags: dkim
 
@@ -80,8 +80,8 @@
     mode: 0644
     create: true
   with_items:
-    - name: "default._domainkey.kumpdev.com"
-      value: "kumpdev.com:default:/etc/opendkim/keys/kumpdev.com/default.private"
+    - name: "default._domainkey.{{ domain }}"
+      value: "{{ domain }}:default:/etc/opendkim/keys/{{ domain }}/default.private"
   notify: Restart opendkim
   tags: dkim
 
@@ -94,7 +94,7 @@
   loop:
     - "127.0.0.1"
     - "localhost"
-    - "*.kumpdev.com"
+    - "*.{{ domain }}"
   notify: Restart opendkim
   tags: dkim
 
@@ -110,7 +110,7 @@
 
 - name: Create the directory for the domain
   ansible.builtin.file:
-    path: "/etc/opendkim/keys/kumpdev.com"
+    path: "/etc/opendkim/keys/{{ domain }}"
     state: directory
     owner: opendkim
     group: opendkim
@@ -119,19 +119,19 @@
 
 - name: Check for private key
   ansible.builtin.stat:
-    path: "/etc/opendkim/keys/kumpdev.com/default.private"
+    path: "/etc/opendkim/keys/{{ domain }}/default.private"
   register: dkim_priv_key
   tags: dkim
 
 - name: Generate Keys
-  ansible.builtin.command: "opendkim-genkey -b 2048 -d kumpdev.com -D /etc/opendkim/keys/kumpdev.com -s default -v"
+  ansible.builtin.command: "opendkim-genkey -b 2048 -d {{ domain }} -D /etc/opendkim/keys/{{ domain }} -s default -v"
   when: not dkim_priv_key.stat.exists
   notify: Restart opendkim
   tags: dkim
 
 - name: Change private key permissions and ownership
   ansible.builtin.file:
-    path: "/etc/opendkim/keys/kumpdev.com/default.private"
+    path: "/etc/opendkim/keys/{{ domain }}/default.private"
     owner: opendkim
     group: opendkim
     mode: 0600

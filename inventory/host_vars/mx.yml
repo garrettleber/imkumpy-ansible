@@ -1,5 +1,6 @@
 ---
 # roles/mail_exchanger
+domain: kumpdev.com
 trusted_networks:
   - 192.168.0.0/24
 relayhost: ""

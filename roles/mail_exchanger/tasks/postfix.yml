@@ -14,7 +14,7 @@
     mode: 0644
   with_items:
     - name: mydestination
-      value: "$myhostname, kumpdev.com, localhost.kumpdev.com, localhost"
+      value: "$myhostname, {{ domain }}, localhost.{{ domain }}, localhost"
     - name: mynetworks
       value: "127.0.0.0/8 {{ trusted_networks | join(' ') }}"
     - name: inet_interfaces
