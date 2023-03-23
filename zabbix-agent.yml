@@ -1,0 +1,3 @@
+---
+- name: Setup zabbix agent on all hosts
+  import_playbook: playbooks/zabbix-agent.yml

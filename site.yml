@@ -2,9 +2,6 @@
 - name: Run common tasks for all hosts
   import_playbook: playbooks/common.yml
 
-- name: Setup zabbix agent on all hosts
-  import_playbook: playbooks/zabbix-agent.yml
-
 - name: Setup nut client for UPS safe shutdowns
   import_playbook: playbooks/nut_clients.yml
 
