@@ -1,11 +1,11 @@
 # Config version. Do not change this
-config-version = "2.5"
+config-version = "2.6"
 
 # What port should the proxy be bound to? By default, we'll bind to all addresses on port 25577.
 bind = "0.0.0.0:25577"
 
 # What should be the MOTD? This gets displayed when the player adds your server to
-# their server list. Legacy color codes and JSON are accepted.
+# their server list. Only MiniMessage format is accepted.
 motd = "{{ proxy_motd }}"
 
 # What should we display for the maximum number of players? (Velocity does not support a cap
@@ -70,75 +70,75 @@ ping-passthrough = "DISABLED"
 enable-player-address-logging = true
 
 [servers]
-fabric = "fabric:25565"
-fabric-creative = "fabric-creative:25565"
-vanilla = "vanilla:25565"
+    fabric = "fabric:25565"
+    fabric-creative = "fabric-creative:25565"
+    vanilla = "vanilla:25565"
 
-# In what order we should try servers when a player logs in or is kicked from a server.
-try = ["{{ proxy_priority_server }}"]
+    # In what order we should try servers when a player logs in or is kicked from a server.
+    try = ["{{ proxy_priority_server }}"]
 
 [forced-hosts]
-"fabric.mc.kumpdev.com" = ["fabric"]
-"fabric-creative.mc.kumpdev.com" = ["fabric-creative"]
-"vanilla.mc.kumpdev.com" = ["vanilla"]
+    "fabric.mc.imkumpy.com" = ["fabric"]
+    "fabric-creative.mc.imkumpy.com" = ["fabric-creative"]
+    "vanilla.mc.imkumpy.com" = ["vanilla"]
 
 [advanced]
-# How large a Minecraft packet has to be before we compress it. Setting this to zero will
-# compress all packets, and setting it to -1 will disable compression entirely.
-compression-threshold = 256
+    # How large a Minecraft packet has to be before we compress it. Setting this to zero will
+    # compress all packets, and setting it to -1 will disable compression entirely.
+    compression-threshold = 256
 
-# How much compression should be done (from 0-9). The default is -1, which uses the
-# default level of 6.
-compression-level = -1
+    # How much compression should be done (from 0-9). The default is -1, which uses the
+    # default level of 6.
+    compression-level = -1
 
-# How fast (in milliseconds) are clients allowed to connect after the last connection? By
-# default, this is three seconds. Disable this by setting this to 0.
-login-ratelimit = 3000
+    # How fast (in milliseconds) are clients allowed to connect after the last connection? By
+    # default, this is three seconds. Disable this by setting this to 0.
+    login-ratelimit = 3000
 
-# Specify a custom timeout for connection timeouts here. The default is five seconds.
-connection-timeout = 5000
+    # Specify a custom timeout for connection timeouts here. The default is five seconds.
+    connection-timeout = 5000
 
-# Specify a read timeout for connections here. The default is 30 seconds.
-read-timeout = 30000
+    # Specify a read timeout for connections here. The default is 30 seconds.
+    read-timeout = 30000
 
-# Enables compatibility with HAProxy's PROXY protocol. If you don't know what this is for, then
-# don't enable it.
-haproxy-protocol = false
+    # Enables compatibility with HAProxy's PROXY protocol. If you don't know what this is for, then
+    # don't enable it.
+    haproxy-protocol = false
 
-# Enables TCP fast open support on the proxy. Requires the proxy to run on Linux.
-tcp-fast-open = false
+    # Enables TCP fast open support on the proxy. Requires the proxy to run on Linux.
+    tcp-fast-open = false
 
-# Enables BungeeCord plugin messaging channel support on Velocity.
-bungee-plugin-message-channel = true
+    # Enables BungeeCord plugin messaging channel support on Velocity.
+    bungee-plugin-message-channel = true
 
-# Shows ping requests to the proxy from clients.
-show-ping-requests = false
+    # Shows ping requests to the proxy from clients.
+    show-ping-requests = false
 
-# By default, Velocity will attempt to gracefully handle situations where the user unexpectedly
-# loses connection to the server without an explicit disconnect message by attempting to fall the
-# user back, except in the case of read timeouts. BungeeCord will disconnect the user instead. You
-# can disable this setting to use the BungeeCord behavior.
-failover-on-unexpected-server-disconnect = true
+    # By default, Velocity will attempt to gracefully handle situations where the user unexpectedly
+    # loses connection to the server without an explicit disconnect message by attempting to fall the
+    # user back, except in the case of read timeouts. BungeeCord will disconnect the user instead. You
+    # can disable this setting to use the BungeeCord behavior.
+    failover-on-unexpected-server-disconnect = true
 
-# Declares the proxy commands to 1.13+ clients.
-announce-proxy-commands = true
+    # Declares the proxy commands to 1.13+ clients.
+    announce-proxy-commands = true
 
-# Enables the logging of commands
-log-command-executions = false
+    # Enables the logging of commands
+    log-command-executions = false
 
-# Enables logging of player connections when connecting to the proxy, switching servers
-# and disconnecting from the proxy.
-log-player-connections = true
+    # Enables logging of player connections when connecting to the proxy, switching servers
+    # and disconnecting from the proxy.
+    log-player-connections = true
 
 [query]
-# Whether to enable responding to GameSpy 4 query responses or not.
-enabled = false
+    # Whether to enable responding to GameSpy 4 query responses or not.
+    enabled = false
 
-# If query is enabled, on what port should the query protocol listen on?
-port = 25577
+    # If query is enabled, on what port should the query protocol listen on?
+    port = 25577
 
-# This is the map name that is reported to the query services.
-map = "Velocity"
+    # This is the map name that is reported to the query services.
+    map = "Velocity"
 
-# Whether plugins should be shown in query response by default or not
-show-plugins = false
+    # Whether plugins should be shown in query response by default or not
+    show-plugins = false

@@ -3,9 +3,9 @@
 #   templates are too manual, need to absract better
 
 # variables for mc-waterfall-proxy configuration
-proxy_motd: "&2Kumpdev &l&7is a server network powered by Ansible!"
+proxy_motd: "<dark_green>Kumpdev </dark_green><gray>is a server network powered by Ansible!"
 proxy_priority_server: "fabric"
-server_domain: "mc.kumpdev.com"
+server_domain: "mc.imkumpy.com"
 forwarding_secret: "{{ vault_forwarding_secret }}"
 
 # variables that are used in docker-compose template
