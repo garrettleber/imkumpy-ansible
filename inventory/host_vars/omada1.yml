@@ -1,8 +1,6 @@
 ---
 # roles/docker_deployment
-service_account: git
-docker_users: ["git"]
+service_account: lab
 
 # roles/common_debian
 setup_iptables: false
-setup_ssh: false
