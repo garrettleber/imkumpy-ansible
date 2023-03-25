@@ -6,6 +6,6 @@
   roles:
     - role: geerlingguy.gitlab
       vars:
-        gitlab_domain: "kumpdev.com"
-        gitlab_external_url: "https://git.kumpdev.com"
+        gitlab_domain: "imkumpy.in"
+        gitlab_external_url: "https://git.imkumpy.in"
         gitlab_redirect_http_to_https: false

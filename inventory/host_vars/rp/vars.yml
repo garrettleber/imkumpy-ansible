@@ -1,0 +1,5 @@
+---
+setup_iptables: false
+
+# roles/docker_deployment
+service_account: lab
