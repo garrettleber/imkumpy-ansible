@@ -2,8 +2,24 @@
 	acme_dns cloudflare {{ vault_cloudflare_api_token }}
 }
 
+alertmanager.imkumpy.in {
+	reverse_proxy k3s-ingress.imkumpy.in:443 {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
+}
+
 git.imkumpy.in {
 	reverse_proxy gitlab.imkumpy.in:443 {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
+}
+
+grafana.imkumpy.in {
+	reverse_proxy k3s-ingress.imkumpy.in:443 {
 		transport http {
 			tls_insecure_skip_verify
 		}

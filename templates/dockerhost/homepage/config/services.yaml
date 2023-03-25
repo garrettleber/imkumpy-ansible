@@ -30,6 +30,12 @@
         href: http://zabbix.imkumpy.in/zabbix/
     - GitLab:
         href: https://git.imkumpy.in/
+    - ArgoCD:
+        href: https://argocd.imkumpy.in/
+    - Grafana:
+        href: https://grafana.imkumpy.in/
+    - Alertmanager:
+        href: https://alertmanager.imkumpy.in/
 
 - Media Management:
     - Plex:
