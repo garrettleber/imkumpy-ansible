@@ -10,6 +10,10 @@ git.imkumpy.in {
 	}
 }
 
+homepage.imkumpy.in {
+	reverse_proxy dockerhost.imkumpy.in:3000
+}
+
 omada.imkumpy.in {
 	reverse_proxy 192.168.0.95:8043 {
 		transport http {

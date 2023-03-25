@@ -7,8 +7,8 @@ services:
   homepage:
     image: ghcr.io/benphelps/homepage:latest
     container_name: homepage
-    # ports: now accessed through caddy at https://homepage.kumpdev.com/
-      # - 3000:3000
+    ports:
+      - 3000:3000
     volumes:
       - ./config:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro # (optional) For docker integrations

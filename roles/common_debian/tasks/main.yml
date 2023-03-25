@@ -1,5 +1,10 @@
 # code: language=ansible
 ---
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}.{{ domain }}"
+    use: debian
+
 - name: Install standard packages
   ansible.builtin.include_tasks: standard-packages.yml
   tags: standard-packages

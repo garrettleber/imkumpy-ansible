@@ -4,18 +4,18 @@
 
 - Hypervisors:
     - Ryzen-Proxmox:
-        href: https://ryzen-proxmox.kumpdev.com/
+        href: https://ryzen-proxmox.imkumpy.in/
         widget:
             type: proxmox
-            url: https://ryzen-proxmox.kumpdev.com
+            url: https://ryzen-proxmox.imkumpy.in
             username: {{ vault_homepage_proxmox_user }}
             password: {{ vault_homepage_proxmox_pass }}
 
     - Proxmox-Backup:
-        href: https://proxmox-backup.int.kumpdev.com:8007/
+        href: https://proxmox-backup.imkumpy.in:8007/
 
     - Unraid:
-        href: http://unraid.int.kumpdev.com/
+        href: http://unraid.imkumpy.in/
 
 - Dockerhost:
     - Caddy:
@@ -25,54 +25,54 @@
 
 - General Services:
     - Syncthing Server:
-        href: https://syncthing.int.kumpdev.com:8384/
+        href: https://syncthing.imkumpy.in:8384/
     - Zabbix:
-        href: http://zabbix.int.kumpdev.com/zabbix/
+        href: http://zabbix.imkumpy.in/zabbix/
     - GitLab:
-        href: https://git.kumpdev.com/
+        href: https://git.imkumpy.in/
 
 - Media Management:
     - Plex:
-        href: http://unraid.int.kumpdev.com:32400/
+        href: http://unraid.imkumpy.in:32400/
         widget:
           type: plex
-          url: http://unraid.int.kumpdev.com:32400
+          url: http://unraid.imkumpy.in:32400
           key: {{ vault_homepage_plex_key }}
     - Overseerr:
-        href: https://requests.kumpdev.com/
+        href: https://requests.imkumpy.com/
         widget:
           type: overseerr
-          url: http://unraid.int.kumpdev.com:5055
+          url: http://unraid.imkumpy.in:5055
           key: {{ vault_overseerr_api_key }}
     - Sonarr:
-        href: http://unraid.int.kumpdev.com:8989/
+        href: http://unraid.imkumpy.in:8989/
         widget:
           type: sonarr
-          url: http://unraid.int.kumpdev.com:8989
+          url: http://unraid.imkumpy.in:8989
           key: {{ vault_sonarr_api_key }}
     - Radarr:
-        href: http://unraid.int.kumpdev.com:7878/
+        href: http://unraid.imkumpy.in:7878/
         widget:
           type: radarr
-          url: http://unraid.int.kumpdev.com:7878
+          url: http://unraid.imkumpy.in:7878
           key: {{ vault_radarr_api_key }}
     - Lidarr:
-        href: http://unraid.int.kumpdev.com:8686/
+        href: http://unraid.imkumpy.in:8686/
         widget:
           type: lidarr
-          url: http://unraid.int.kumpdev.com:8686
+          url: http://unraid.imkumpy.in:8686
           key: {{ vault_lidarr_api_key }}
     - Prowlarr:
-        href: http://unraid.int.kumpdev.com:9696/
+        href: http://unraid.imkumpy.in:9696/
         widget:
           type: prowlarr
-          url: http://unraid.int.kumpdev.com:9696
+          url: http://unraid.imkumpy.in:9696
           key: {{ vault_prowlarr_api_key }}
     - qBittorrent:
-        href: http://unraid.int.kumpdev.com:8080/
+        href: http://unraid.imkumpy.in:8080/
         widget:
           type: qbittorrent
-          url: http://unraid.int.kumpdev.com:8080
+          url: http://unraid.imkumpy.in:8080
           username: {{ vault_qbittorrent_user }}
           password: {{ vault_qbittorrent_pass }}
     - SABnzbd:
@@ -84,28 +84,28 @@
 
 - Network:
     - Omada:
-        href: https://omada.kumpdev.com/
+        href: https://omada.imkumpy.in/
         widget:
             type: omada
-            url: https://omada.int.kumpdev.com:8043
+            url: https://omada.imkumpy.in
             username: {{ vault_omada_user }}
             password: '{{ vault_omada_pass }}'
             site: Default
     - PiHole (Active VIP):
-        href: http://pihole.kumpdev.com/admin/
+        href: http://pihole.imkumpy.in/admin/
         widget:
           type: pihole
-          url: http://pihole.kumpdev.com
+          url: http://pihole.imkumpy.in
           key: {{ vault_pihole_api_key }}
     - PiHole (ns1):
-        href: http://ns1.int.kumpdev.com/admin/
+        href: http://ns1.imkumpy.in/admin/
         widget:
           type: pihole
-          url: http://ns1.int.kumpdev.com
+          url: http://ns1.imkumpy.in
           key: {{ vault_pihole_api_key }}
     - PiHole (ns2):
-        href: http://ns2.int.kumpdev.com/admin/
+        href: http://ns2.imkumpy.in/admin/
         widget:
           type: pihole
-          url: http://ns2.int.kumpdev.com
+          url: http://ns2.imkumpy.in
           key: {{ vault_pihole_api_key }}
