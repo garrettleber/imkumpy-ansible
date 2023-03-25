@@ -2,6 +2,6 @@
 # roles/nut_client
 install_nut: true
 nut_server_group: servers
-nut_server: rpi.kumpdev.com
+nut_server: rpi.imkumpy.in
 nut_user: lab
 nut_password: "{{ vault_nut_password }}"

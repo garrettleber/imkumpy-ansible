@@ -3,11 +3,11 @@
 # https://gethomepage.dev/en/configs/services
 
 - Hypervisors:
-    - Ryzen-Proxmox:
-        href: https://ryzen-proxmox.imkumpy.in/
+    - Proxmox:
+        href: https://proxmox.imkumpy.in/
         widget:
             type: proxmox
-            url: https://ryzen-proxmox.imkumpy.in
+            url: https://proxmox.imkumpy.in
             username: {{ vault_homepage_proxmox_user }}
             password: {{ vault_homepage_proxmox_pass }}
 

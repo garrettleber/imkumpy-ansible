@@ -24,7 +24,7 @@ omada.imkumpy.in {
 	}
 }
 
-ryzen-proxmox.imkumpy.in {
+proxmox.imkumpy.in {
 	reverse_proxy 192.168.0.100:8006 {
 		transport http {
 			tls_insecure_skip_verify
