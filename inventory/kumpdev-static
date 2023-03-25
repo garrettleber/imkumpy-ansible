@@ -1,13 +1,13 @@
 [nut_clients:children]
 #proxmox_nodes TODO FIX
 proxmox_backup_servers
-# unraid.int.kumpdev.com -- this one is currently manually configured through Unraid GUI
+# unraid.imkumpy.in -- this one is currently manually configured through Unraid GUI
 
 [proxmox_backup_servers]
-proxmox-backup.int.kumpdev.com ansible_user=root
+proxmox-backup.imkumpy.in ansible_user=root
 
 # [vps]
-# vps.kumpdev.com ansible_user=root
+# vps.imkumpy.com ansible_user=root
 
 [rpi]
-rpi.kumpdev.com
+rpi.imkumpy.in
