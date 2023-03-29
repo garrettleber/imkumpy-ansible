@@ -40,6 +40,14 @@ omada.imkumpy.in {
 	}
 }
 
+plex.imkumpy.in {
+	reverse_proxy unraid.imkumpy.in:32400 {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
+}
+
 proxmox.imkumpy.in {
 	reverse_proxy 192.168.0.100:8006 {
 		transport http {
