@@ -55,3 +55,7 @@ proxmox.imkumpy.in {
 		}
 	}
 }
+
+panel.imkumpy.in {
+	reverse_proxy pterodactyl.imkumpy.in:80
+}
