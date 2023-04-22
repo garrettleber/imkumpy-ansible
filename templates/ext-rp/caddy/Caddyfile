@@ -1,0 +1,11 @@
+{
+	acme_dns cloudflare {{ vault_cloudflare_api_token }}
+}
+
+mattermost.imkumpy.com {
+	reverse_proxy mattermost.imkumpy.in:8065
+}
+
+requests.imkumpy.com {
+	reverse_proxy unraid.imkumpy.in:5055
+}
