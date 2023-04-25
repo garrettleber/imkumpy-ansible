@@ -1,6 +1,6 @@
 ---
 - name: Setup Docker container runtime and applications
-  hosts: dockerhost,omada1,prod-mc,rp,ext-rp,portainer-server,portainer-agent1
+  hosts: dockerhost,omada1,prod-mc,rp,ext-rp,portainer-server,portainer-agent*
   become: true
   tags: docker-deployment
   roles:
