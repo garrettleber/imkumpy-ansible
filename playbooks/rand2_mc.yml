@@ -1,0 +1,6 @@
+---
+- name: Provision Modded Minecraft server(s)
+  hosts: rand2-mc
+  become: true
+  roles:
+    - role: aws_cli

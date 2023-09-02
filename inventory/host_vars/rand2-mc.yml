@@ -1,0 +1,10 @@
+---
+# roles/common_debian
+iptables_custom_rules:
+  - comment: Minecraft
+    port: "{{ mc_connection_port }}"
+    protocol: tcp
+
+# roles/nfs_client
+setup_nfs_share: true
+

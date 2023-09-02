@@ -19,6 +19,9 @@
 
 - name: Provision Minecraft server(s)
   import_playbook: playbooks/prod_mc.yml
+
+- name: Provision Modded Minecraft server(s)
+  import_playbook: playbooks/rand2_mc.yml
 #
 # Disabled because it will overwrite custom configuration on server
 # - name: Provision Gitlab server(s)
